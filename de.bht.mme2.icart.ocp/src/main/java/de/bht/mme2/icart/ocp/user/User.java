@@ -1,6 +1,7 @@
 package de.bht.mme2.icart.ocp.user;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 @Table(name="icart_user")
 public class User {
 	@Id
+	@GeneratedValue
 	private Integer id;
 	private String firstname;
 	private String lastname;

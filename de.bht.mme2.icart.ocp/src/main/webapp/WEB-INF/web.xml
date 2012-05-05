@@ -11,5 +11,5 @@
     <servlet-mapping>
         <servlet-name>JsonParserServlet</servlet-name>
         <url-pattern>/simple</url-pattern>
-    </servlet-mapping>    W
+    </servlet-mapping>
 </web-app>
