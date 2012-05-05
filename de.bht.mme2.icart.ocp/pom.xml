@@ -84,15 +84,6 @@ flex, mme2, adobe air
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
-				<configuration>
-					<overlays>
-						<overlay />
-						<overlay>
-							<groupId>org.cometd.javascript</groupId>
-							<artifactId>cometd-javascript-jquery</artifactId>
-						</overlay>
-					</overlays>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -174,6 +165,12 @@ flex, mme2, adobe air
 			</plugin>
 		</plugins>
 	</reporting>
+<repositories>
+  <repository>
+    <id>eclipselink</id>
+    <url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo/</url>
+  </repository>
+</repositories>
 
 	<dependencies>
 		<dependency>
@@ -181,27 +178,6 @@ flex, mme2, adobe air
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.cometd.java</groupId>
-			<artifactId>bayeux-api</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.cometd.javascript</groupId>
-			<artifactId>cometd-javascript-jquery</artifactId>
-			<version>2.3.1</version>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>org.cometd.java</groupId>
-			<artifactId>cometd-java-server</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.cometd.java</groupId>
-			<artifactId>cometd-java-annotations</artifactId>
-			<version>2.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -220,6 +196,12 @@ flex, mme2, adobe air
 			<version>1.4.4</version>
 		</dependency>
 		<dependency>
+    <groupId>org.eclipse.persistence</groupId>
+    <artifactId>eclipselink</artifactId>
+    <version>2.0.0</version>
+  </dependency>
+		
+		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
 			<version>2.0.0</version>
@@ -236,21 +218,6 @@ flex, mme2, adobe air
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
 			<version>10.8.2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>1.0.1.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.8.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>

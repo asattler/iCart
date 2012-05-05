@@ -26,16 +26,15 @@ public class JsonParserServlet extends HttpServlet{
             while ((s = request.getReader().readLine()) != null) {
                 sb.append(s);
             }
-
             User student = (User) gson.fromJson(sb.toString(), User.class);
 
             Status status = new Status();
-            if (student.getFirstname().equalsIgnoreCase("edw")) {
+            if (student.getFirstname() != null) {
                 status.setSuccess(true);
                 status.setDescription("success");
             } else {
                 status.setSuccess(false);
-                status.setDescription("not edw");
+                status.setDescription("error");
             }
             response.getOutputStream().print(gson.toJson(status));
             response.getOutputStream().flush();
@@ -51,6 +50,12 @@ public class JsonParserServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

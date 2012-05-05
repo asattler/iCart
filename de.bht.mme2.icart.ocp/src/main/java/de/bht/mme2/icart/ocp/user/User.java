@@ -1,10 +1,25 @@
 package de.bht.mme2.icart.ocp.user;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="icart_user")
 public class User {
+	@Id
+	private Integer id;
 	private String firstname;
 	private String lastname;
 	private String email;
 	private String password;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getFirstname() {
 		return firstname;
 	}
