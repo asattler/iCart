@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
+	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
+	<classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar" sourcepath="M2_REPO/javax/activation/activation/1.1/activation-1.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/servlet/jstl/1.2/jstl-1.2.jar" sourcepath="M2_REPO/javax/servlet/jstl/1.2/jstl-1.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/mail/mail/1.4.4/mail-1.4.4.jar" sourcepath="M2_REPO/javax/mail/mail/1.4.4/mail-1.4.4-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" sourcepath="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar" sourcepath="M2_REPO/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2.jar" sourcepath="M2_REPO/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-io/commons-io/2.1/commons-io-2.1.jar" sourcepath="M2_REPO/commons-io/commons-io/2.1/commons-io-2.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/derby/derby/10.8.2.2/derby-10.8.2.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/easymock/easymock/3.1/easymock-3.1.jar" sourcepath="M2_REPO/org/easymock/easymock/3.1/easymock-3.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/easymock/easymockclassextension/3.1/easymockclassextension-3.1.jar" sourcepath="M2_REPO/org/easymock/easymockclassextension/3.1/easymockclassextension-3.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/eclipse/persistence/eclipselink/2.0.0/eclipselink-2.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.1/gson-2.1.jar" sourcepath="M2_REPO/com/google/code/gson/gson/2.1/gson-2.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1.jar" sourcepath="M2_REPO/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/eclipse/persistence/javax.persistence/2.0.0/javax.persistence-2.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-continuation/7.4.4.v20110707/jetty-continuation-7.4.4.v20110707.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-continuation/7.4.4.v20110707/jetty-continuation-7.4.4.v20110707-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-servlets/7.4.4.v20110707/jetty-servlets-7.4.4.v20110707.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-servlets/7.4.4.v20110707/jetty-servlets-7.4.4.v20110707-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-util/7.4.4.v20110707/jetty-util-7.4.4.v20110707.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-util/7.4.4.v20110707/jetty-util-7.4.4.v20110707-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jstl/jstl/1.2/jstl-1.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar" sourcepath="M2_REPO/junit/junit/4.8.1/junit-4.8.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/5.1.18/mysql-connector-java-5.1.18.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/objenesis/objenesis/1.2/objenesis-1.2.jar" sourcepath="M2_REPO/org/objenesis/objenesis/1.2/objenesis-1.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/tika/tika-core/0.7/tika-core-0.7.jar" sourcepath="M2_REPO/org/apache/tika/tika-core/0.7/tika-core-0.7-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

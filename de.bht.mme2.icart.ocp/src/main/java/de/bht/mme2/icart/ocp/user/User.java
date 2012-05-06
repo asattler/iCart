@@ -2,6 +2,7 @@ package de.bht.mme2.icart.ocp.user;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,17 +10,17 @@ import javax.persistence.Table;
 @Table(name="icart_user")
 public class User {
 	@Id
-	@GeneratedValue
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	private Long id;
 	private String firstname;
 	private String lastname;
 	private String email;
 	private String password;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getFirstname() {

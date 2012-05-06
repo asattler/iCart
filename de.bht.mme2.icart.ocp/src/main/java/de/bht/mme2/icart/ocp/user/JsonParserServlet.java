@@ -14,6 +14,8 @@ public class JsonParserServlet extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private UserDao userDao = new UserDao();
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -26,12 +28,19 @@ public class JsonParserServlet extends HttpServlet{
             while ((s = request.getReader().readLine()) != null) {
                 sb.append(s);
             }
-            User student = (User) gson.fromJson(sb.toString(), User.class);
+            User user = (User) gson.fromJson(sb.toString(), User.class);
 
             Status status = new Status();
-            if (student.getFirstname() != null) {
-                status.setSuccess(true);
-                status.setDescription("success");
+            if (user.getFirstname() != null) {
+            	if(userDao.findByEmail(user.getEmail()) == null){
+            		this.userDao.save(user);
+            		status.setSuccess(true);
+            		status.setDescription("success");
+            	}
+            	else {
+            		status.setSuccess(false);
+                    status.setDescription("Email already registered.");
+            	}
             } else {
                 status.setSuccess(false);
                 status.setDescription("error");
