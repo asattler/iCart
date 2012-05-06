@@ -5,11 +5,19 @@
     id="WebApp_ID" version="2.5">
     <display-name>interactive shopping cart</display-name>
     <servlet>
-        <servlet-name>JsonParserServlet</servlet-name>
-        <servlet-class>de.bht.mme2.icart.ocp.user.JsonParserServlet</servlet-class>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>de.bht.mme2.icart.ocp.user.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>de.bht.mme2.icart.ocp.user.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>JsonParserServlet</servlet-name>
-        <url-pattern>/simple</url-pattern>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
 </web-app>
