@@ -37,6 +37,7 @@ public class LoginServlet extends HttpServlet {
 					if (dbUser.getPassword().equals(user.getPassword())) {
 						status.setSuccess(true);
 						status.setDescription("success");
+						request.getSession().setAttribute("user", dbUser);
 					} else {
 						status.setSuccess(false);
 						status.setDescription("User or Password incorrect.");
