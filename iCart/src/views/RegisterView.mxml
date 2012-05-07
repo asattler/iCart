@@ -6,6 +6,7 @@
 		<![CDATA[
 			import com.adobe.serialization.json.JSON;
 			
+			
 			import mx.controls.Alert;
 			import mx.core.FlexGlobals;
 			import mx.events.ValidationResultEvent;
@@ -21,8 +22,8 @@
 				emailValidator = new EmailValidator();
 				emailValidator.source = registerEmail;
 				emailValidator.property = "text";
-				emailValidator.trigger = submit;
-				emailValidator.triggerEvent = MouseEvent.CLICK;
+				emailValidator.trigger = registerEmail;
+				emailValidator.triggerEvent = FocusEvent.FOCUS_OUT;
 				emailValidator.addEventListener(ValidationResultEvent.VALID, emailValidator_valid);
 				emailValidator.addEventListener(ValidationResultEvent.INVALID, emailValidator_invalid);
 			}
@@ -32,7 +33,7 @@
 			}
 			
 			private function emailValidator_invalid(evt:ValidationResultEvent):void {
-				mx.controls.Alert.show(evt.message);
+				//mx.controls.Alert.show(evt.message);
 			}
 			
 			private function checkRegister(evt:ResultEvent):void
@@ -106,6 +107,18 @@
 		<mx:StringValidator source="{registerFirstname}" property="text" required="true"
 							maxLength="30"
 							trigger="{registerFirstname}" triggerEvent="focusOut"
+							/>
+		<mx:StringValidator source="{registerLastname}" property="text" required="true"
+							maxLength="30"
+							trigger="{registerLastname}" triggerEvent="focusOut"
+							/>	
+		<mx:StringValidator source="{registerPassword}" property="text" required="true"
+							maxLength="30"
+							trigger="{registerPassword}" triggerEvent="focusOut"
+							/>
+		<mx:StringValidator source="{registerConfirm}" property="text" required="true"
+							maxLength="30"
+							trigger="{registerConfirm}" triggerEvent="focusOut"
 							/>	
 	</fx:Declarations>
 	
