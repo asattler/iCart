@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx" width.Login="800" height.Login="407" height.Register="407" width.Register="800" xmlns:views="views.*">
+	
+
+	<s:states>
+		<s:State name="Login"/>
+		<s:State name="LoggedIn"/>
+		<s:State name="Register"/>
+		<s:State name="Settings"/>
+	</s:states>
+	
+	<views:LoginView id="LoginView" includeIn="Login" x="233" y="97">
+	</views:LoginView>
+	
+	<views:RegisterView id="RegisterView" includeIn="Register" x="218" y="55">
+	</views:RegisterView>
+	<views:OverviewView includeIn="LoggedIn" x="236" y="87">
+	</views:OverviewView>
+	<views:SettingsView includeIn="Settings" x="262" y="65">
+	</views:SettingsView>
+	
+</s:WindowedApplication>
