@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="326" height="210" title="Login">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.serialization.json.JSON;
+			
+			
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.HTTPService;
+			
+			import user.User;
+			
+			
+			private function sendLogin():void
+			{
+				var user2:User = new User(loginEmail.text.toString(), "", "", loginPassword.text.toString());
+				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService()
+				httpService.url = "http://192.168.171.128:8080/de.bht.mme2.icart.ocp/login";
+				httpService.method = "POST";
+				httpService.contentType = "application/json";
+				httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT
+				httpService.addEventListener(ResultEvent.RESULT, checkLogin);
+				httpService.send(JSON.encode(user2));
+			}
+			
+			private function clearLoginInputs():void {
+				loginEmail.text = "";
+				loginPassword.text = "";
+			}
+			
+			private function checkLogin(evt:ResultEvent):void
+			{	
+				var data:Object = JSON.decode(evt.result.toString());
+				if(data.success == true)
+				{
+					clearLoginInputs();
+					parentApplication.currentState = "LoggedIn";
+				}
+				else if(data.success == false)
+				{
+					mx.controls.Alert.show("Invalid username/password");
+				}		
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Label x="60" y="21" text="Email:" />
+	<s:Label x="60" y="79" text="Password:"/>
+	<s:TextInput x="60" y="41" id="loginEmail" width="207" textAlign="left"/>
+	<s:TextInput x="60" y="99" id="loginPassword" displayAsPassword="true" width="207"/>
+	<s:Button x="198" y="133" label="Login" id="submit" click="sendLogin();"/>
+	<s:Button x="60" y="134" label="New Account" click="parentApplication.currentState='Register';"/>
+</s:Panel>

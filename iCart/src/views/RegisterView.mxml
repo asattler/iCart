@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" textAlign="left" title="Register" width="356" height="293" x="217" y="55" initialize="init();">
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.serialization.json.JSON;
+			
+			
+			import mx.controls.Alert;
+			import mx.core.FlexGlobals;
+			import mx.events.ValidationResultEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.HTTPService;
+			import mx.validators.EmailValidator;
+			
+			import user.User;
+			
+			private var emailValidator:EmailValidator;
+			
+			private function init():void {
+				emailValidator = new EmailValidator();
+				emailValidator.source = registerEmail;
+				emailValidator.property = "text";
+				emailValidator.trigger = submit;
+				emailValidator.triggerEvent = MouseEvent.CLICK;
+				emailValidator.addEventListener(ValidationResultEvent.VALID, emailValidator_valid);
+				emailValidator.addEventListener(ValidationResultEvent.INVALID, emailValidator_invalid);
+			}
+			
+			private function emailValidator_valid(evt:ValidationResultEvent):void {
+				sendRegister();
+			}
+			
+			private function emailValidator_invalid(evt:ValidationResultEvent):void {
+				//mx.controls.Alert.show(evt.message);
+			}
+			
+			private function checkRegister(evt:ResultEvent):void
+			{	
+				var data:Object = JSON.decode(evt.result.toString());
+				if(data.success == true)
+				{
+					clearRegisterInputs();
+					parentApplication.currentState = "Login";
+				}
+				else if(data.success == false)
+				{
+					mx.controls.Alert.show(data.description);
+				}		
+			}
+			
+			
+			private function sendRegister():void
+			{
+				if(registerEmail.text == "" || registerFirstname.text == "" || registerLastname.text == "" || registerPassword.text == "" || registerConfirm.text == ""){
+					mx.controls.Alert.show("Please fill all required Fields.");
+				}
+				else if(registerPassword.text == registerConfirm.text){
+					
+					var user2:User = new User(registerEmail.text.toString(), registerFirstname.text.toString(), registerLastname.text.toString(), registerPassword.text.toString());
+					var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
+					httpService.url = "http://192.168.171.128:8080/de.bht.mme2.icart.ocp/register";
+					httpService.method = "POST";
+					httpService.contentType = "application/json";
+					httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT;
+					httpService.addEventListener(ResultEvent.RESULT, checkRegister);
+					httpService.send(JSON.encode(user2));
+				} else {
+					mx.controls.Alert.show("Passwords don't match");
+				}
+			}
+			
+			private function clearRegisterInputs():void {
+				registerEmail.text = "";
+				registerFirstname.text = "";
+				registerLastname.text = "";
+				registerPassword.text = "";
+				registerConfirm.text = "";
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<mx:Form x="35" y="26" width="293" height="174">
+		<mx:FormItem label="Email" required="true">
+			<s:TextInput id="registerEmail"/>
+		</mx:FormItem>
+		<mx:FormItem label="Firstname" required="true">
+			<s:TextInput id="registerFirstname"/>
+		</mx:FormItem>
+		<mx:FormItem label="Lastname" required="true">
+			<s:TextInput id="registerLastname"/>
+		</mx:FormItem>
+		<mx:FormItem label="Password" required="true">
+			<s:TextInput id="registerPassword" displayAsPassword="true"/>
+		</mx:FormItem>
+		<mx:FormItem label="confirm" required="true">
+			<s:TextInput id="registerConfirm" displayAsPassword="true"/>
+		</mx:FormItem>
+	</mx:Form>
+	<s:Button x="258" y="208" id="submit" label="Continue" />
+	<s:Button x="35" y="208" label="Cancel" click="clearRegisterInputs();parentApplication.currentState='Login'"/>
+	
+	<fx:Declarations>
+		<mx:StringValidator source="{registerEmail}" property="text" required="true"
+							maxLength="30"
+							trigger="{registerEmail}" triggerEvent="focusOut"
+							/>
+		<mx:StringValidator source="{registerFirstname}" property="text" required="true"
+							maxLength="30"
+							trigger="{registerFirstname}" triggerEvent="focusOut"
+							/>
+		<mx:StringValidator source="{registerLastname}" property="text" required="true"
+							maxLength="30"
+							trigger="{registerLastname}" triggerEvent="focusOut"
+							/>	
+		<mx:StringValidator source="{registerPassword}" property="text" required="true"
+							maxLength="30"
+							trigger="{registerPassword}" triggerEvent="focusOut"
+							/>
+		<mx:StringValidator source="{registerConfirm}" property="text" required="true"
+							maxLength="30"
+							trigger="{registerConfirm}" triggerEvent="focusOut"
+							/>	
+	</fx:Declarations>
+	
+	
+</s:Panel>
