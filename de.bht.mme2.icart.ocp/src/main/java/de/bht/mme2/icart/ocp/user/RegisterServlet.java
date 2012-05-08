@@ -17,6 +17,9 @@ public class RegisterServlet extends HttpServlet{
 	
 	private UserDao userDao = new UserDao();
 
+	/*
+	 * based on how to by edwin (http://edwin.baculsoft.com/2011/11/how-to-create-a-simple-servlet-to-handle-json-requests/)
+	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");

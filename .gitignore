@@ -1,0 +1,9 @@
+*/target/*
+*/bin/*
+eclipse-workspace
+.project
+*/.settings/*
+derby.log
+de.bht.mme2.icart.ocp/icart_db/*
+de.bht.mme2.icart.ocp/WebContent/*
+.metadata
