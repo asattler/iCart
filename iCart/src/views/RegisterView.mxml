@@ -22,8 +22,8 @@
 				emailValidator = new EmailValidator();
 				emailValidator.source = registerEmail;
 				emailValidator.property = "text";
-				emailValidator.trigger = registerEmail;
-				emailValidator.triggerEvent = FocusEvent.FOCUS_OUT;
+				emailValidator.trigger = submit;
+				emailValidator.triggerEvent = MouseEvent.CLICK;
 				emailValidator.addEventListener(ValidationResultEvent.VALID, emailValidator_valid);
 				emailValidator.addEventListener(ValidationResultEvent.INVALID, emailValidator_invalid);
 			}
@@ -59,11 +59,11 @@
 				else if(registerPassword.text == registerConfirm.text){
 					
 					var user2:User = new User(registerEmail.text.toString(), registerFirstname.text.toString(), registerLastname.text.toString(), registerPassword.text.toString());
-					var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService()
+					var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
 					httpService.url = "http://192.168.171.128:8080/de.bht.mme2.icart.ocp/register";
 					httpService.method = "POST";
 					httpService.contentType = "application/json";
-					httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT
+					httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT;
 					httpService.addEventListener(ResultEvent.RESULT, checkRegister);
 					httpService.send(JSON.encode(user2));
 				} else {
@@ -104,6 +104,10 @@
 	<s:Button x="35" y="208" label="Cancel" click="clearRegisterInputs();parentApplication.currentState='Login'"/>
 	
 	<fx:Declarations>
+		<mx:StringValidator source="{registerEmail}" property="text" required="true"
+							maxLength="30"
+							trigger="{registerEmail}" triggerEvent="focusOut"
+							/>
 		<mx:StringValidator source="{registerFirstname}" property="text" required="true"
 							maxLength="30"
 							trigger="{registerFirstname}" triggerEvent="focusOut"
