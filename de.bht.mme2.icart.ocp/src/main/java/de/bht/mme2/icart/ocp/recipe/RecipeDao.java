@@ -24,6 +24,16 @@ public class RecipeDao {
 			return null;
 		}
 	}
+	
+	public Recipe findByURL(String url) {
+		try {
+			return (Recipe) em
+					.createQuery("SELECT r from Recipe r where r.url = :url")
+					.setParameter("url", url).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 
 	public void save(Recipe recipe) {
 		em.getTransaction().begin();

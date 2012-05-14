@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import de.bht.mme2.icart.ocp.parsers.TestParser;
+import de.bht.mme2.icart.ocp.utils.Status;
 
 public class LoginServlet extends HttpServlet {
 	/**
@@ -65,8 +65,6 @@ public class LoginServlet extends HttpServlet {
 			response.getOutputStream().print(gson.toJson(status));
 			response.getOutputStream().flush();
 		}
-		
-		TestParser.mytest();
 	}
 
 	@Override

@@ -16,6 +16,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>de.bht.mme2.icart.ocp.user.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddRecipeServlet</servlet-name>
+        <servlet-class>de.bht.mme2.icart.ocp.recipe.AddServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -27,5 +31,9 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddRecipeServlet</servlet-name>
+        <url-pattern>/addRecipe</url-pattern>
     </servlet-mapping>
 </web-app>

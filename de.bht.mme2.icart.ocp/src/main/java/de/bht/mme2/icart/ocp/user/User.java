@@ -1,10 +1,14 @@
 package de.bht.mme2.icart.ocp.user;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import de.bht.mme2.icart.ocp.recipe.Recipe;
 
 @Entity
 @Table(name="icart_user")
@@ -16,6 +20,7 @@ public class User {
 	private String lastname;
 	private String email;
 	private String password;
+	private Set<Recipe> recipes;
 	
 	public Long getId() {
 		return id;
@@ -46,6 +51,12 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Set<Recipe> getRecipes() {
+		return recipes;
+	}
+	public void setRecipes(Set<Recipe> recipes) {
+		this.recipes = recipes;
 	}
 	
 	

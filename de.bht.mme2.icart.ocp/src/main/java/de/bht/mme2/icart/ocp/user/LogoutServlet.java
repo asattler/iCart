@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import de.bht.mme2.icart.ocp.utils.Status;
+
 public class LogoutServlet extends HttpServlet{
 
 	/**
