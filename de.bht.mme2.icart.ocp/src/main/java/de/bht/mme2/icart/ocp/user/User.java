@@ -1,11 +1,13 @@
 package de.bht.mme2.icart.ocp.user;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import de.bht.mme2.icart.ocp.recipe.Recipe;
@@ -20,6 +22,8 @@ public class User {
 	private String lastname;
 	private String email;
 	private String password;
+	
+	@ManyToMany(mappedBy = "users")
 	private Set<Recipe> recipes;
 	
 	public Long getId() {
@@ -53,6 +57,9 @@ public class User {
 		this.password = password;
 	}
 	public Set<Recipe> getRecipes() {
+		if(recipes == null){
+			return new HashSet<Recipe>();
+		}
 		return recipes;
 	}
 	public void setRecipes(Set<Recipe> recipes) {

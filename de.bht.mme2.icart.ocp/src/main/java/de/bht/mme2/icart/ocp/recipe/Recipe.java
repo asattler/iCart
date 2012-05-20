@@ -1,13 +1,12 @@
 package de.bht.mme2.icart.ocp.recipe;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import de.bht.mme2.icart.ocp.user.User;
@@ -28,10 +27,9 @@ public class Recipe {
 	
 	private int amountPortion;
 	
-	@ManyToMany
 	private Set<User> users;
 	
-	private ArrayList<Ingredient> ingredients;
+	private Set<Ingredient> ingredients;
 
 	public Long getId() {
 		return id;
@@ -73,11 +71,14 @@ public class Recipe {
 		this.users = users;
 	}
 
-	public ArrayList<Ingredient> getIngredients() {
+	public Set<Ingredient> getIngredients() {
+		if(ingredients == null){
+			return new HashSet<Ingredient>();
+		}
 		return ingredients;
 	}
 
-	public void setIngredients(ArrayList<Ingredient> ingredients) {
+	public void setIngredients(Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 
