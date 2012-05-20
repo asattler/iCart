@@ -9,6 +9,7 @@
 		<s:State name="LoggedIn"/>
 		<s:State name="Register"/>
 		<s:State name="Settings"/>
+		<s:State name="Recipes"/>
 	</s:states>
 	
 	<views:LoginView id="LoginView" includeIn="Login" x="233" y="97">
@@ -20,5 +21,6 @@
 	</views:OverviewView>
 	<views:SettingsView includeIn="Settings" x="262" y="65">
 	</views:SettingsView>
-	
+	<views:RecipesView includeIn="Recipes">
+	</views:RecipesView>
 </s:WindowedApplication>

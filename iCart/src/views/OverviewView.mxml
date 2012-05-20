@@ -2,41 +2,23 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
-	<s:Button x="318" y="10" label="Logout" click="sendLogout();"/>
-	<s:Button x="42" y="76" label="Shopping Lists" width="120"/>
-	<s:Button x="42" y="105" label="Recipes" width="120"/>
-	<s:Button x="42" y="134" label="Settings" width="120"/>
+	<s:Button x="297" y="33" label="Logout" click="sendLogout();"/>
+	<s:Button x="42" y="95" label="Shopping Lists" width="120"/>
+	<s:Button x="42" y="124" label="Recipes" width="120" click="setRecipesState();"/>
+	<s:Button x="42" y="153" label="Settings" width="120" click="setSettingsState();"/>
+	<s:Label x="42" y="38" text="FoodCart" fontSize="21" fontWeight="bold"/>
+	
 	<fx:Script>
 		<![CDATA[
-		import com.adobe.serialization.json.JSON;
-		
-		
-		import mx.controls.Alert;
-		import mx.rpc.events.ResultEvent;
-		import mx.rpc.http.HTTPService;
-		
-		private function sendLogout():void
+		include "../user/Logout.as";
+		private function setSettingsState():void
 		{
-			var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService()
-			httpService.url = "http://192.168.171.128:8080/de.bht.mme2.icart.ocp/logout";
-			httpService.method = "POST";
-			httpService.contentType = "application/json";
-			httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT
-			httpService.addEventListener(ResultEvent.RESULT, setLogoutState);
-			httpService.send("{}");
+			parentApplication.currentState = "Settings";
 		}
-		
-		private function setLogoutState(evt:ResultEvent):void
+			
+		private function setRecipesState():void
 		{
-			var data:Object = JSON.decode(evt.result.toString());
-			if(data.success == true)
-			{
-				parentApplication.currentState = "Login";
-			}
-			else if(data.success == false)
-			{
-				mx.controls.Alert.show(evt.result.toString());
-			}		
+			parentApplication.currentState = "Recipes";
 		}
 		]]>
 	</fx:Script>

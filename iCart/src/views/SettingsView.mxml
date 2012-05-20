@@ -2,40 +2,12 @@
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	
 	<fx:Script>
 		<![CDATA[
-			import com.adobe.serialization.json.JSON;
-			
-			
-			import mx.controls.Alert;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.http.HTTPService;
-			private function sendLogout():void
-			{
-				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService()
-				httpService.url = "http://192.168.171.128:8080/de.bht.mme2.icart.ocp/logout";
-				httpService.method = "POST";
-				httpService.contentType = "application/json";
-				httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT
-				httpService.addEventListener(ResultEvent.RESULT, setLogoutState);
-				httpService.send("{}");
-			}
-			
-			private function setLogoutState(evt:ResultEvent):void
-			{
-				var data:Object = JSON.decode(evt.result.toString());
-				if(data.success == true)
-				{
-					parentApplication.currentState = "Login";
-				}
-				else if(data.success == false)
-				{
-					mx.controls.Alert.show(evt.result.toString());
-				}		
-			}
+			include "../user/Logout.as";
 		]]>
 	</fx:Script>
-	
 	
 	<mx:Form x="56" y="6" width="240" height="166">
 		<mx:FormHeading label="Account Details"/>
@@ -52,6 +24,7 @@
 			<s:TextInput/>
 		</mx:FormItem>
 	</mx:Form>
+	
 	<s:Button x="226" y="194" label="Save"/>
 	<s:Button x="56" y="194" label="Cancel"/>
 	<s:Button x="318" y="10" label="Logout" click="sendLogout();"/>

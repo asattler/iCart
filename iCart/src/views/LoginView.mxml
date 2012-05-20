@@ -13,13 +13,14 @@
 			import mx.rpc.http.HTTPService;
 			
 			import user.User;
+			import utils.Constants;
 			
 			
 			private function sendLogin():void
 			{
 				var user2:User = new User(loginEmail.text.toString(), "", "", loginPassword.text.toString());
 				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService()
-				httpService.url = "http://192.168.171.128:8080/de.bht.mme2.icart.ocp/login";
+				httpService.url = Constants.SERVER_URL + "/login";
 				httpService.method = "POST";
 				httpService.contentType = "application/json";
 				httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT
