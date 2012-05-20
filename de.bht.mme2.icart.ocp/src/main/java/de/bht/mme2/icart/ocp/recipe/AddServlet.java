@@ -50,7 +50,7 @@ public class AddServlet extends HttpServlet {
 					status.setSuccess(true);
 					status.setDescription("Recipe already in DB.");
 				} else {
-					if(user.getEmail().contains("chefkoch.de")){
+					if(url.getUrl().contains("chefkoch.de")){
 						parser = new ChefkochParser();	
 					}
 					

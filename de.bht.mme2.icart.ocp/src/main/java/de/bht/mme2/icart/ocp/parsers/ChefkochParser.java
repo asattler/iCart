@@ -23,6 +23,7 @@ public class ChefkochParser implements IParser{
 		Document doc = Jsoup.connect(url).get();
 		recipe.setUrl(url);
 		recipe.setName(doc.select(".hrecipe .big").text());
+		System.out.println("ANZAHL: "+doc.select("#rezept-zutaten input[name=divisor]"));
 		Elements zutaten = doc.select(".zutaten .ingredient");
 		Element img = doc.select("#ss_img_link img").first();
 		String imgurl = img.absUrl("src");

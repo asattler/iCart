@@ -26,6 +26,8 @@ public class Recipe {
 	
 	private String imgURL;
 	
+	private int amountPortion;
+	
 	@ManyToMany
 	private Set<User> users;
 	
@@ -77,5 +79,13 @@ public class Recipe {
 
 	public void setIngredients(ArrayList<Ingredient> ingredients) {
 		this.ingredients = ingredients;
+	}
+
+	public int getAmountPortion() {
+		return amountPortion;
+	}
+
+	public void setAmountPortion(int amountPortion) {
+		this.amountPortion = amountPortion;
 	}
 }
