@@ -47,6 +47,7 @@ public class AddServlet extends HttpServlet {
 				Recipe dbRecipe = recipeDao.findByURL(url.getUrl());
 				if (dbRecipe != null) {
 					dbRecipe.getUsers().add(user);
+					recipeDao.save(dbRecipe);
 					status.setSuccess(true);
 					status.setDescription("Recipe already in DB.");
 				} else {
