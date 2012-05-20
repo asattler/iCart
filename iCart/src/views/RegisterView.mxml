@@ -6,15 +6,16 @@
 		<![CDATA[
 			import com.adobe.serialization.json.JSON;
 			
-			
 			import mx.controls.Alert;
 			import mx.core.FlexGlobals;
 			import mx.events.ValidationResultEvent;
+			import mx.managers.CursorManager;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.HTTPService;
 			import mx.validators.EmailValidator;
 			
 			import user.User;
+			
 			import utils.Constants;
 			
 			private var emailValidator:EmailValidator;
@@ -39,6 +40,7 @@
 			
 			private function checkRegister(evt:ResultEvent):void
 			{	
+				CursorManager.removeBusyCursor();
 				var data:Object = JSON.decode(evt.result.toString());
 				if(data.success == true)
 				{
@@ -54,11 +56,12 @@
 			
 			private function sendRegister():void
 			{
+				
 				if(registerEmail.text == "" || registerFirstname.text == "" || registerLastname.text == "" || registerPassword.text == "" || registerConfirm.text == ""){
 					mx.controls.Alert.show("Please fill all required Fields.");
 				}
 				else if(registerPassword.text == registerConfirm.text){
-					
+					CursorManager.setBusyCursor();	
 					var user2:User = new User(registerEmail.text.toString(), registerFirstname.text.toString(), registerLastname.text.toString(), registerPassword.text.toString());
 					var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
 					httpService.url = Constants.SERVER_URL + "/register";

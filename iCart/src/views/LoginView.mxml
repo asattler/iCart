@@ -7,17 +7,19 @@
 		<![CDATA[
 			import com.adobe.serialization.json.JSON;
 			
-			
 			import mx.controls.Alert;
+			import mx.managers.CursorManager;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.HTTPService;
 			
 			import user.User;
+			
 			import utils.Constants;
 			
 			
 			private function sendLogin():void
 			{
+				CursorManager.setBusyCursor();
 				var user2:User = new User(loginEmail.text.toString(), "", "", loginPassword.text.toString());
 				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService()
 				httpService.url = Constants.SERVER_URL + "/login";
@@ -35,6 +37,7 @@
 			
 			private function checkLogin(evt:ResultEvent):void
 			{	
+				CursorManager.removeBusyCursor();
 				var data:Object = JSON.decode(evt.result.toString());
 				if(data.success == true)
 				{

@@ -7,6 +7,7 @@
 			import com.adobe.serialization.json.JSON;
 			
 			import mx.controls.Alert;
+			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.HTTPService;
@@ -17,19 +18,22 @@
 			
 			private function sendRecipe():void
 			{
+				
+				CursorManager.setBusyCursor();
 				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
 				httpService.url = Constants.SERVER_URL + "/addRecipe";
 				httpService.method = "POST";
 				httpService.contentType = "application/json";
 				httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT;
 				httpService.addEventListener(ResultEvent.RESULT, checkResult);
-				httpService.send(JSON.encode(new RecipeUrl(url.text)));
+				httpService.send(JSON.encode(new RecipeUrl(url.text.toString())));
 			}
 			
 			private function checkResult(evt:ResultEvent):void
 			{
 				//mx.controls.Alert.show(evt.toString());http://www.chefkoch.de/rezepte/2082671336381721/Pide-mit-Hack.html
 				
+				CursorManager.removeBusyCursor();
 				var data:Object = JSON.decode(evt.result.toString());
 				if(data.success == true)
 				{
