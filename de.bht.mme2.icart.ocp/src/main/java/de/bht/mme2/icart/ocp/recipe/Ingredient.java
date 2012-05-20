@@ -1,6 +1,12 @@
 package de.bht.mme2.icart.ocp.recipe;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9133045524463973061L;
 	private String name;
 	private String amount;
 	public String getAmount() {

@@ -1,7 +1,8 @@
 package de.bht.mme2.icart.ocp.parsers;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,9 +29,9 @@ public class TestParser {
 		String url = img.absUrl("src");
 		recipe.setImgURL(url);
 		
-		ArrayList<Ingredient> ig = recipe.getIngredients();
+		Set<Ingredient> ig = recipe.getIngredients();
 		if(ig == null){
-			ig = new ArrayList<Ingredient>();
+			ig = new HashSet<Ingredient>();
 		}
 		for(Element e : zutaten){
 			Ingredient z = new Ingredient();

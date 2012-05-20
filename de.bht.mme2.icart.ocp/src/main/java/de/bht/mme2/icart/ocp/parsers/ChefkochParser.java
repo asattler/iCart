@@ -1,7 +1,6 @@
 package de.bht.mme2.icart.ocp.parsers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,9 +20,11 @@ public class ChefkochParser implements IParser{
 		Recipe recipe = new Recipe();
 		
 		Document doc = Jsoup.connect(url).get();
+		
 		recipe.setUrl(url);
 		recipe.setName(doc.select(".hrecipe .big").text());
-		System.out.println("ANZAHL: "+doc.select("#rezept-zutaten input[name=divisor]"));
+		recipe.setAmountPortion(Integer.valueOf(doc.select("#rezept-zutaten input[name=divisor]").val()));
+		
 		Elements zutaten = doc.select(".zutaten .ingredient");
 		Element img = doc.select("#ss_img_link img").first();
 		String imgurl = img.absUrl("src");
@@ -33,15 +34,13 @@ public class ChefkochParser implements IParser{
 		userList.add(user);
 		recipe.setUsers(userList);
 		
-		ArrayList<Ingredient> ig = recipe.getIngredients();
-		if(ig == null){
-			ig = new ArrayList<Ingredient>();
-		}
+		Set<Ingredient> ig = new HashSet<Ingredient>();
+		Ingredient ingr;
 		for(Element e : zutaten){
-			Ingredient z = new Ingredient();
-			z.setName(e.select("td").get(1).text());
-			z.setAmount(e.select("td").get(0).text());
-			ig.add(z);
+			ingr = new Ingredient();
+			ingr.setName(e.select("td").get(1).text());
+			ingr.setAmount(e.select("td").get(0).text());
+			ig.add(ingr);
 		}
 		recipe.setIngredients(ig);
 		
