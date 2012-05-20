@@ -5,13 +5,26 @@
 
 	<fx:Script>
 		<![CDATA[
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			
+			import views.dialogs.RecipeAddExternal;
+			
 			include "../user/Logout.as";
+			
+			private function showExternalSourceDialog():void
+			{
+				var myWindows:IFlexDisplayObject = PopUpManager.createPopUp(this,
+					RecipeAddExternal, true);
+				PopUpManager.centerPopUp(myWindows);
+				
+			}
 		]]>
 	</fx:Script>
 	
 	<s:Button x="720" y="10" label="Logout" click="sendLogout();"/>
-	<s:Button x="39" y="61" label="Eigene Rezepte hinzufügen"/>
-	<s:Button x="218" y="61" label="Internet-Rezepte hinzufügen"/>
-	<s:Button x="400" y="61" label="Rezepte importieren"/>
-	<s:Button x="540" y="61" label="Rezepte exportieren"/>
+	<s:Button x="39" y="61" label="Add own recipe"/>
+	<s:Button x="218" y="61" label="Add recipe from external source" click="showExternalSourceDialog()"/>
+	<s:Button x="400" y="61" label="Import recipes"/>
+	<s:Button x="540" y="61" label="Export recipes"/>
 </s:Group>
