@@ -6,7 +6,7 @@
 		<class>de.bht.mme2.icart.ocp.user.User</class>
 		<class>de.bht.mme2.icart.ocp.recipe.Recipe</class>
 		<properties>
-			<property name="eclipselink.jdbc.password" value="foo"/>
+			<property name="eclipselink.jdbc.password" value="einstein"/>
 			<property name="eclipselink.jdbc.user" value="root"/>
 			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/iCart"/>
