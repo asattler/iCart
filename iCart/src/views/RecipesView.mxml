@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="800" height="600">
+
+	<fx:Script>
+		<![CDATA[
+			include "../user/Logout.as";
+		]]>
+	</fx:Script>
+	
+	<s:Button x="720" y="10" label="Logout" click="sendLogout();"/>
+	<s:Button x="39" y="61" label="Eigene Rezepte hinzufügen"/>
+	<s:Button x="218" y="61" label="Internet-Rezepte hinzufügen"/>
+	<s:Button x="400" y="61" label="Rezepte importieren"/>
+	<s:Button x="540" y="61" label="Rezepte exportieren"/>
+</s:Group>
