@@ -15,31 +15,38 @@
 	
 	
 	<s:Label x="10" y="96" text="Ingredients"/>
-	<s:Label x="10" y="116" text="Amount"/>
-	<s:Label x="84" y="116" text="Ingredient"/>
-	<s:TextInput x="10" y="136" width="{amountFieldWidth}"/>
-	<s:TextInput x="84" y="136" width="{ingredientFieldWidth}"/>
-	<s:Button x="317" y="136" label="Add" click = "addNewIngredient();"/>
 	<s:Button x="318" y="236" label="Submit"/>
 	<s:Button x="240" y="236" label="Cancel"/>
+	<mx:DataGrid x="10" y="116" height="94" width="378" id="dg_ingredients" dataProvider="{initDG}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Amount" dataField="amount"/>
+			<mx:DataGridColumn headerText="Ingredient" dataField="ingredient"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<s:Button x="10" y="218" label="Add Ingredient" click="addIngredient()"/>
 	
 	<fx:Script>
-		var ingredientFieldYPositionStart:int = 136;
-		var ingredientFieldYPositionNew:int = ingredientFieldYPositionStart + 15;
-		
-		var amountFieldWidth:int = 63;
-		var ingredientFieldWidth:int = 225;
-		
-		private function addNewIngredient():void
-		{
-			var amount:TextInput = new TextInput();
-			amount.x = 10;
-			amount.y = ingredientFieldYPositionNew;
-			amount.width = amountFieldWidth;
-			addElement(amount);
-			ingredientFieldYPositionStart = ingredientFieldYPositionNew;
-			ingredientFieldYPositionNew += 15;
-		}
+		<![CDATA[
+			
+			import mx.collections.ArrayCollection;
+			
+			public var ing_data:Array = [];
+			//ing_data.push({amount:"5kg", ingredient:"Kartoffeln"});
+			//ing_data.push({amount:"2kg", ingredient:"Moehren"});
+			
+			[Bindable]
+			public var initDG:ArrayCollection;
+			
+			function addIngredient():void
+			{
+				ing_data.push({amount:"1kg", ingredient:"foo"});	
+				initDG = new ArrayCollection(ing_data);
+			}
+			
+			function initData(){
+				initDG = new ArrayCollection(ing_data);
+			}
+		]]>
 	</fx:Script>
 	
 </s:TitleWindow>
