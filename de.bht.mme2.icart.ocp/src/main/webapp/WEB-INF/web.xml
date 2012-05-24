@@ -20,6 +20,14 @@
         <servlet-name>AddRecipeServlet</servlet-name>
         <servlet-class>de.bht.mme2.icart.ocp.recipe.AddServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddOwnRecipeServlet</servlet-name>
+        <servlet-class>de.bht.mme2.icart.ocp.recipe.AddOwnServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddOwnRecipeServlet</servlet-name>
+        <url-pattern>/addOwnRecipe</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>

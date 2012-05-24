@@ -5,19 +5,19 @@
 
 	<mx:Form x="10" y="6">
 		<mx:FormItem label="Name">
-			<s:TextInput/>
+			<s:TextInput id="recipeName"/>
 		</mx:FormItem>
 		<mx:FormItem label="Portions">
-			<s:TextInput/>
+			<s:TextInput id="amountPortions"/>
 		</mx:FormItem>
 	</mx:Form>
 	
 	
 	
 	<s:Label x="10" y="96" text="Ingredients"/>
-	<s:Button x="318" y="236" label="Submit"/>
+	<s:Button x="318" y="236" label="Submit" click="sendRecipe();"/>
 	<s:Button x="240" y="236" label="Cancel"/>
-	<mx:DataGrid x="10" y="116" height="94" width="378" id="dg_ingredients" dataProvider="{initDG}">
+	<mx:DataGrid x="10" y="116" height="94" width="378" id="dg_ingredients" dataProvider="{initDG}" editable="true">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Amount" dataField="amount"/>
 			<mx:DataGridColumn headerText="Ingredient" dataField="ingredient"/>
@@ -28,7 +28,19 @@
 	<fx:Script>
 		<![CDATA[
 			
+			import com.adobe.serialization.json.JSON;
+			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.managers.CursorManager;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.HTTPService;
+			
+			import recipe.Recipe;
+			
+			import user.User;
+			
+			import utils.Constants;
 			
 			public var ing_data:Array = [];
 			//ing_data.push({amount:"5kg", ingredient:"Kartoffeln"});
@@ -43,8 +55,43 @@
 				initDG = new ArrayCollection(ing_data);
 			}
 			
-			function initData(){
+			function initData():void{
 				initDG = new ArrayCollection(ing_data);
+			}
+			
+			function checkSendRecipe(evt:ResultEvent):void{
+				
+					CursorManager.removeBusyCursor();
+					var data:Object = JSON.decode(evt.result.toString());
+					if(data.success == true)
+					{
+						clearRecipeInputs();
+						
+					}
+					else if(data.success == false)
+					{
+						mx.controls.Alert.show(data.description);
+					}		
+		
+			}
+			
+			private function clearRecipeInputs():void {
+				recipeName.text = "";
+				amountPortions.text = "";
+				ing_data = [];
+				initDG = new ArrayCollection(ing_data);
+			}
+			
+			private function sendRecipe():void{
+				CursorManager.setBusyCursor();	
+				var recipe2:Recipe = new Recipe(recipeName.text.toString(), int(amountPortions.text.toString()), ing_data);
+				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
+				httpService.url = Constants.SERVER_URL + "/addOwnRecipe";
+				httpService.method = "POST";
+				httpService.contentType = "application/json";
+				httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT;
+				httpService.addEventListener(ResultEvent.RESULT, checkSendRecipe);
+				httpService.send(JSON.encode(recipe2));
 			}
 		]]>
 	</fx:Script>

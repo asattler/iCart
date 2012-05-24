@@ -64,6 +64,9 @@ public class Recipe {
 	}
 
 	public Set<User> getUsers() {
+		if(users == null){
+			return new HashSet<User>();
+		}
 		return users;
 	}
 
