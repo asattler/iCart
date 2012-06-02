@@ -61,7 +61,7 @@
 			}
 			
 			function checkGetRecipes(evt:ResultEvent):void{
-				mx.controls.Alert.show(evt.result.toString());
+				//mx.controls.Alert.show(evt.result.toString());
 				CursorManager.removeBusyCursor();
 				var data:Object = JSON.decode(evt.result.toString());
 				if(data.success == false)
