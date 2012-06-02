@@ -6,24 +6,32 @@
     <display-name>interactive shopping cart</display-name>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>de.bht.mme2.icart.ocp.user.RegisterServlet</servlet-class>
+        <servlet-class>de.bht.mme2.icart.ocp.user.servlets.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>de.bht.mme2.icart.ocp.user.LoginServlet</servlet-class>
+        <servlet-class>de.bht.mme2.icart.ocp.user.servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>de.bht.mme2.icart.ocp.user.LogoutServlet</servlet-class>
+        <servlet-class>de.bht.mme2.icart.ocp.user.servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddRecipeServlet</servlet-name>
-        <servlet-class>de.bht.mme2.icart.ocp.recipe.AddServlet</servlet-class>
+        <servlet-class>de.bht.mme2.icart.ocp.recipe.servlets.AddServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddOwnRecipeServlet</servlet-name>
-        <servlet-class>de.bht.mme2.icart.ocp.recipe.AddOwnServlet</servlet-class>
+        <servlet-class>de.bht.mme2.icart.ocp.recipe.servlets.AddOwnServlet</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>ListRecipesServlet</servlet-name>
+        <servlet-class>de.bht.mme2.icart.ocp.recipe.servlets.ListRecipesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListRecipesServlet</servlet-name>
+        <url-pattern>/listRecipes</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddOwnRecipeServlet</servlet-name>
         <url-pattern>/addOwnRecipe</url-pattern>

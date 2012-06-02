@@ -1,7 +1,7 @@
 package de.bht.mme2.icart.ocp.user;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +24,7 @@ public class User {
 	private String password;
 	
 	@ManyToMany(mappedBy = "users")
-	private Set<Recipe> recipes;
+	private List<Recipe> recipes;
 	
 	public Long getId() {
 		return id;
@@ -56,13 +56,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Set<Recipe> getRecipes() {
+	public List<Recipe> getRecipes() {
 		if(recipes == null){
-			return new HashSet<Recipe>();
+			return new ArrayList<Recipe>();
 		}
 		return recipes;
 	}
-	public void setRecipes(Set<Recipe> recipes) {
+	public void setRecipes(List<Recipe> recipes) {
 		this.recipes = recipes;
 	}
 	

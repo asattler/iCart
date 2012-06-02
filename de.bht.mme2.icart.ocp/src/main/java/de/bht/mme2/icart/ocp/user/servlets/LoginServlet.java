@@ -1,4 +1,4 @@
-package de.bht.mme2.icart.ocp.user;
+package de.bht.mme2.icart.ocp.user.servlets;
 
 import java.io.IOException;
 
@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import de.bht.mme2.icart.ocp.user.User;
+import de.bht.mme2.icart.ocp.user.UserDao;
 import de.bht.mme2.icart.ocp.utils.Status;
 
 public class LoginServlet extends HttpServlet {

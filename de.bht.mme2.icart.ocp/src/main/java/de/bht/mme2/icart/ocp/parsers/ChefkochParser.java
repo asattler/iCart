@@ -1,7 +1,9 @@
 package de.bht.mme2.icart.ocp.parsers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.jsoup.Jsoup;
@@ -30,7 +32,7 @@ public class ChefkochParser implements IParser{
 		String imgurl = img.absUrl("src");
 		recipe.setImgURL(imgurl);
 		
-		Set<User> userList = new HashSet<User>();
+		List<User> userList = new ArrayList <User>();
 		userList.add(user);
 		recipe.setUsers(userList);
 		

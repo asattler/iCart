@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="800" height="600">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="800" height="600" initialize="getRecipes();">
 
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			import mx.core.IFlexDisplayObject;
+			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
 			
 			import views.dialogs.RecipeAddExternal;
@@ -28,12 +30,67 @@
 				PopUpManager.centerPopUp(myWindows);
 				
 			}
+		
+		
+			public var ing_data:Array = [];
+			//ing_data.push({name:"5kg", actions:"Kartoffeln"});
+			//ing_data.push({amount:"2kg", ingredient:"Moehren"});
+			
+			[Bindable]
+			public var initDG:ArrayCollection;
+			
+			function addIngredient():void
+			{
+				ing_data.push({name:"1kg", actions:"foo"});	
+				initDG = new ArrayCollection(ing_data);
+			}
+			
+			function initData():void{
+				initDG = new ArrayCollection(ing_data);
+			}
+			
+			private function getRecipes():void{
+				CursorManager.setBusyCursor();	
+				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
+				httpService.url = Constants.SERVER_URL + "/listRecipes";
+				httpService.method = "POST";
+				httpService.contentType = "application/json";
+				httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT;
+				httpService.addEventListener(ResultEvent.RESULT, checkGetRecipes);
+				httpService.send();
+			}
+			
+			function checkGetRecipes(evt:ResultEvent):void{
+				mx.controls.Alert.show(evt.result.toString());
+				CursorManager.removeBusyCursor();
+				var data:Object = JSON.decode(evt.result.toString());
+				if(data.success == false)
+				{
+					mx.controls.Alert.show(data.description);
+				}
+				else
+				{
+					for(var i:int = 0; i < data.length; i++){
+						ing_data.push({name:data[i].name, actions:""});
+					}
+					initDG = new ArrayCollection(ing_data);
+				}		
+				
+			}
+			
+			
 		]]>
 	</fx:Script>
 	
 	<s:Button x="720" y="10" label="Logout" click="sendLogout();"/>
 	<s:Button x="39" y="61" label="Add own recipe" click="showInternalSourceDialog()"/>
-	<s:Button x="218" y="61" label="Add recipe from external source" click="showExternalSourceDialog()"/>
+	<s:Button x="174" y="61" label="Add recipe from external source" click="showExternalSourceDialog()"/>
 	<s:Button x="400" y="61" label="Import recipes"/>
-	<s:Button x="540" y="61" label="Export recipes"/>
+	<s:Button x="539" y="61" label="Export recipes"/>
+	<mx:DataGrid x="38" y="145" width="600" height="389" dataProvider="{initDG}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Name" dataField="name" width="500"/>
+			<mx:DataGridColumn headerText="Actions" dataField="actions"/>
+		</mx:columns>
+	</mx:DataGrid>
 </s:Group>

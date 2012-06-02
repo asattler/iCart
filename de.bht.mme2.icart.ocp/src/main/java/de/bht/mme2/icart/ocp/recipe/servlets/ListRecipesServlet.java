@@ -1,7 +1,9 @@
-package de.bht.mme2.icart.ocp.recipe;
+package de.bht.mme2.icart.ocp.recipe.servlets;
 
 import java.io.IOException;
-import java.util.Set;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,15 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import de.bht.mme2.icart.ocp.parsers.TestParser;
+import de.bht.mme2.icart.ocp.recipe.Recipe;
+import de.bht.mme2.icart.ocp.recipe.RecipeDTO;
 import de.bht.mme2.icart.ocp.user.User;
+import de.bht.mme2.icart.ocp.user.UserDao;
 import de.bht.mme2.icart.ocp.utils.Status;
 
-public class ListServlet extends HttpServlet {
+public class ListRecipesServlet extends HttpServlet {
 	/**
 	 * 
 	 */
+	private UserDao userDao = new UserDao();
+	
 	private static final long serialVersionUID = 1L;
 
 	/*
@@ -29,27 +36,35 @@ public class ListServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
 		User user = (User) request.getSession().getAttribute("user");
+		user = userDao.findById(user.getId());
 		Gson gson = new Gson();
-
+		Status status = new Status();
 		if (user == null) {
-
+			status.setSuccess(false);
+			status.setDescription("User not found!");
+			response.getOutputStream().print(gson.toJson(status));
+			response.getOutputStream().flush();
 		} else {
-			Set<Recipe> recipes = user.getRecipes();
-
+			List<Recipe> recipes = user.getRecipes();
+			List<RecipeDTO> recipesDTO = new ArrayList<RecipeDTO>();
+			Type type = new TypeToken<List<RecipeDTO>>(){}.getType();
+			for (Recipe myRecipe : recipes){
+				RecipeDTO rDTO = new RecipeDTO();
+				rDTO.setName(myRecipe.getName());
+				recipesDTO.add(rDTO);
+			}
 			try {
 
-				response.getOutputStream().print(gson.toJson(recipes));
+				response.getOutputStream().print(gson.toJson(recipesDTO, type));
 				response.getOutputStream().flush();
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				Status status = new Status();
 				status.setSuccess(false);
 				status.setDescription(ex.getMessage());
 				response.getOutputStream().print(gson.toJson(status));
 				response.getOutputStream().flush();
 			}
 		}
-		TestParser.mytest();
 	}
 
 	@Override

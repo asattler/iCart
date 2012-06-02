@@ -1,6 +1,8 @@
 package de.bht.mme2.icart.ocp.recipe;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -27,7 +29,7 @@ public class Recipe {
 	
 	private int amountPortion;
 	
-	private Set<User> users;
+	private List<User> users;
 	
 	private Set<Ingredient> ingredients;
 
@@ -63,14 +65,14 @@ public class Recipe {
 		this.imgURL = imgURL;
 	}
 
-	public Set<User> getUsers() {
+	public List<User> getUsers() {
 		if(users == null){
-			return new HashSet<User>();
+			return new ArrayList<User>();
 		}
 		return users;
 	}
 
-	public void setUsers(Set<User> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 

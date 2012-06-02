@@ -1,4 +1,4 @@
-package de.bht.mme2.icart.ocp.user;
+package de.bht.mme2.icart.ocp.user.servlets;
 
 import java.io.IOException;
 
