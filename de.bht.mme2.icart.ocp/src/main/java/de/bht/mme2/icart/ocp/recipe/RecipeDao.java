@@ -11,6 +11,7 @@ public class RecipeDao {
 			.createEntityManagerFactory();
 	private static EntityManager em = emf.createEntityManager();
 
+	
 	public Recipe findById(Long id) {
 		return em.find(Recipe.class, id);
 	}
@@ -42,6 +43,9 @@ public class RecipeDao {
 		} else {
 			em.persist(recipe);
 		}
+		em.flush();
 		em.getTransaction().commit();
+		em.clear();
+		em.getEntityManagerFactory().getCache().evictAll();
 	}
 }

@@ -54,7 +54,7 @@ public class ListRecipesServlet extends HttpServlet {
 				recipesDTO.add(rDTO);
 			}
 			try {
-
+				System.out.println("Recipes are pushed out.");
 				response.getOutputStream().print(gson.toJson(recipesDTO, type));
 				response.getOutputStream().flush();
 			} catch (Exception ex) {
