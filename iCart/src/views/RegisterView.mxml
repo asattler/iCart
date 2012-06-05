@@ -35,7 +35,7 @@
 			}
 			
 			private function emailValidator_invalid(evt:ValidationResultEvent):void {
-				//mx.controls.Alert.show(evt.message);
+				//Alert.show(evt.message);
 			}
 			
 			private function checkRegister(evt:ResultEvent):void
@@ -49,7 +49,7 @@
 				}
 				else if(data.success == false)
 				{
-					mx.controls.Alert.show(data.description);
+					Alert.show(data.description);
 				}		
 			}
 			
@@ -58,7 +58,7 @@
 			{
 				
 				if(registerEmail.text == "" || registerFirstname.text == "" || registerLastname.text == "" || registerPassword.text == "" || registerConfirm.text == ""){
-					mx.controls.Alert.show("Please fill all required Fields.");
+					Alert.show("Please fill all required Fields.");
 				}
 				else if(registerPassword.text == registerConfirm.text){
 					CursorManager.setBusyCursor();	
@@ -71,7 +71,7 @@
 					httpService.addEventListener(ResultEvent.RESULT, checkRegister);
 					httpService.send(JSON.encode(user2));
 				} else {
-					mx.controls.Alert.show("Passwords don't match");
+					Alert.show("Passwords don't match");
 				}
 			}
 			

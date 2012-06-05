@@ -46,7 +46,7 @@
 				}
 				else if(data.success == false)
 				{
-					mx.controls.Alert.show("Invalid username/password");
+					Alert.show("Invalid username/password");
 				}		
 			}
 			

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="152" title="Add Recipe from external Source">
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="152" title="Add Recipe from external Source" close="handleCloseEvent();">
 	<fx:Script>
 		<![CDATA[
 			import com.adobe.serialization.json.JSON;
@@ -15,6 +15,17 @@
 			import recipe.RecipeUrl;
 			
 			import utils.Constants;
+			
+			private var timer:Timer;
+			
+			private function handleCloseEvent():void{
+				CursorManager.removeBusyCursor();
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function handleCloseTimerEvent(event:TimerEvent):void{
+				handleCloseEvent();
+			}
 			
 			private function sendRecipe():void
 			{
@@ -31,21 +42,29 @@
 			
 			private function checkResult(evt:ResultEvent):void
 			{
-				//mx.controls.Alert.show(evt.toString());http://www.chefkoch.de/rezepte/2082671336381721/Pide-mit-Hack.html
+				//Alert.show(evt.toString());http://www.chefkoch.de/rezepte/2082671336381721/Pide-mit-Hack.html
 				
-				CursorManager.removeBusyCursor();
+				
 				var data:Object = JSON.decode(evt.result.toString());
 				if(data.success == true)
 				{
-					//clearRegisterInputs();
+					clearRecipeInputs();
 					//parentApplication.currentState = "Login";
-					PopUpManager.removePopUp(this);
+					timer = new Timer(1000, 1);
+					timer.addEventListener(TimerEvent.TIMER_COMPLETE, handleCloseTimerEvent);
+					timer.start();
+
 				}
 				else if(data.success == false)
 				{
-					mx.controls.Alert.show(data.description);
+					CursorManager.removeBusyCursor();
+					Alert.show(data.description);
 				}
 				
+			}
+			
+			private function clearRecipeInputs():void {
+				url.text = "";
 			}
 		]]>
 	</fx:Script>

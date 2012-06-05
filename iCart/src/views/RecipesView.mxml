@@ -14,43 +14,42 @@
 			import views.dialogs.RecipeAddOwn;
 			
 			include "../user/Logout.as";
+		
+		
+			public var ing_data:Array = [];
 			
+			[Bindable]
+			public var initDG:ArrayCollection;
+
 			private function showExternalSourceDialog():void
 			{
-				var myWindows:IFlexDisplayObject = PopUpManager.createPopUp(this,
+				var extSrcDialog:IFlexDisplayObject = PopUpManager.createPopUp(this,
 					RecipeAddExternal, true);
-				PopUpManager.centerPopUp(myWindows);
+				PopUpManager.centerPopUp(extSrcDialog);
+				extSrcDialog.addEventListener("close", handleClosedWindow);
 				
 			}
 			
 			private function showInternalSourceDialog():void
 			{
-				var myWindows:IFlexDisplayObject = PopUpManager.createPopUp(this,
+				var intSrcDialog:IFlexDisplayObject = PopUpManager.createPopUp(this,
 					RecipeAddOwn, true);
-				PopUpManager.centerPopUp(myWindows);
+				PopUpManager.centerPopUp(intSrcDialog);
+				intSrcDialog.addEventListener("close", handleClosedWindow);
+			}
+			
+			private function handleClosedWindow(evt:Event):void{
 				
+				getRecipes();
 			}
-		
-		
-			public var ing_data:Array = [];
-			//ing_data.push({name:"5kg", actions:"Kartoffeln"});
-			//ing_data.push({amount:"2kg", ingredient:"Moehren"});
 			
-			[Bindable]
-			public var initDG:ArrayCollection;
-			
-			function addIngredient():void
-			{
-				ing_data.push({name:"1kg", actions:"foo"});	
+			private function initData():void{
 				initDG = new ArrayCollection(ing_data);
 			}
 			
-			function initData():void{
-				initDG = new ArrayCollection(ing_data);
-			}
-			
-			private function getRecipes():void{
-				CursorManager.setBusyCursor();	
+			public function getRecipes():void{
+				CursorManager.setBusyCursor();
+				
 				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
 				httpService.url = Constants.SERVER_URL + "/listRecipes";
 				httpService.method = "POST";
@@ -60,16 +59,16 @@
 				httpService.send();
 			}
 			
-			function checkGetRecipes(evt:ResultEvent):void{
-				//mx.controls.Alert.show(evt.result.toString());
+			private function checkGetRecipes(evt:ResultEvent):void{
 				CursorManager.removeBusyCursor();
 				var data:Object = JSON.decode(evt.result.toString());
 				if(data.success == false)
 				{
-					mx.controls.Alert.show(data.description);
+					Alert.show(data.description);
 				}
 				else
 				{
+					ing_data = [];
 					for(var i:int = 0; i < data.length; i++){
 						ing_data.push({name:data[i].name, actions:""});
 					}

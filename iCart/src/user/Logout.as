@@ -7,7 +7,7 @@
 	
 	import utils.Constants;
 	
-	function sendLogout():void
+	public function sendLogout():void
 	{
 		var httpService:HTTPService = new HTTPService();
 		httpService.url = Constants.SERVER_URL + "/logout";
@@ -18,7 +18,7 @@
 		httpService.send("{}");
 	}
 	
-	function setLogoutState(evt:ResultEvent):void
+	public function setLogoutState(evt:ResultEvent):void
 	{
 		var data:Object = JSON.decode(evt.result.toString());
 		if(data.success == true)
@@ -27,7 +27,7 @@
 		}
 		else if(data.success == false)
 		{
-			mx.controls.Alert.show(evt.result.toString());
+			Alert.show(evt.result.toString());
 		}		
 	}
 	

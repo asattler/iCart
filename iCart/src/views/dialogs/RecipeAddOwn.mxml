@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" close="handleCloseEvent();">
 
 	<mx:Form x="10" y="6">
 		<mx:FormItem label="Name">
@@ -33,6 +33,7 @@
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.managers.CursorManager;
+			import mx.managers.PopUpManager;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.HTTPService;
 			
@@ -49,28 +50,33 @@
 			[Bindable]
 			public var initDG:ArrayCollection;
 			
-			function addIngredient():void
+			private function handleCloseEvent():void{
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function addIngredient():void
 			{
 				ing_data.push({amount:"1kg", ingredient:"foo"});	
 				initDG = new ArrayCollection(ing_data);
 			}
 			
-			function initData():void{
+			private function initData():void{
 				initDG = new ArrayCollection(ing_data);
 			}
 			
-			function checkSendRecipe(evt:ResultEvent):void{
+			private function checkSendRecipe(evt:ResultEvent):void{
 				
 					CursorManager.removeBusyCursor();
 					var data:Object = JSON.decode(evt.result.toString());
 					if(data.success == true)
 					{
 						clearRecipeInputs();
+						handleCloseEvent();
 						
 					}
 					else if(data.success == false)
 					{
-						mx.controls.Alert.show(data.description);
+						Alert.show(data.description);
 					}		
 		
 			}
