@@ -1,6 +1,7 @@
 package de.bht.mme2.icart.ocp.recipe.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -51,8 +52,10 @@ public class AddServlet extends HttpServlet {
 			if (url.getUrl() != null) {
 				Recipe dbRecipe = recipeDao.findByURL(url.getUrl());
 				if (dbRecipe != null) {
+					user.getRecipes().add(dbRecipe);
 					dbRecipe.getUsers().add(user);
 					recipeDao.save(dbRecipe);
+					userDao.save(user);
 					status.setSuccess(true);
 					status.setDescription("Recipe already in DB.");
 				} else {
@@ -63,6 +66,11 @@ public class AddServlet extends HttpServlet {
 					if(parser != null){
 						Recipe recipe = parser.parseFromURL(url.getUrl(), user);
 						recipeDao.save(recipe);
+						List<Recipe> r = user.getRecipes();
+						r.add(recipe);
+						user.setRecipes(r);
+						userDao.save(user);
+					
 						status.setSuccess(true);
 						status.setDescription("Recipe added to DB.");
 					} else{
