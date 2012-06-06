@@ -10,6 +10,8 @@
 			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
 			
+			import recipe.RecipeExport;
+			
 			import views.dialogs.RecipeAddExternal;
 			import views.dialogs.RecipeAddOwn;
 			
@@ -77,6 +79,11 @@
 				
 			}
 			
+			private function exportRecipe():void
+			{
+				var myRecipeExport:RecipeExport = new RecipeExport();
+			}
+			
 			
 		]]>
 	</fx:Script>
@@ -85,7 +92,7 @@
 	<s:Button x="39" y="61" label="Add own recipe" click="showInternalSourceDialog()"/>
 	<s:Button x="174" y="61" label="Add recipe from external source" click="showExternalSourceDialog()"/>
 	<s:Button x="400" y="61" label="Import recipes"/>
-	<s:Button x="539" y="61" label="Export recipes"/>
+	<s:Button x="539" y="61" label="Export recipes" click="exportRecipe();"/>
 	<mx:DataGrid x="38" y="145" width="600" height="389" dataProvider="{initDG}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Name" dataField="name" width="500"/>
