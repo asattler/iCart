@@ -27,21 +27,18 @@
 	
 	<fx:Script>
 		<![CDATA[
-			
 			import com.adobe.serialization.json.JSON;
+			
+			import events.HttpRequestEvent;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.http.HTTPService;
 			
 			import recipe.Recipe;
 			
-			import user.User;
-			
-			import utils.Constants;
+			import utils.HttpRequests;
 			
 			public var ing_data:Array = [];
 			//ing_data.push({amount:"5kg", ingredient:"Kartoffeln"});
@@ -64,10 +61,10 @@
 				initDG = new ArrayCollection(ing_data);
 			}
 			
-			private function checkSendRecipe(evt:ResultEvent):void{
+			private function checkSendRecipe(evt:HttpRequestEvent):void{
 				
 					CursorManager.removeBusyCursor();
-					var data:Object = JSON.decode(evt.result.toString());
+					var data:Object = JSON.decode(evt.eventData);
 					if(data.success == true)
 					{
 						clearRecipeInputs();
@@ -91,13 +88,9 @@
 			private function sendRecipe():void{
 				CursorManager.setBusyCursor();	
 				var recipe2:Recipe = new Recipe(recipeName.text.toString(), int(amountPortions.text.toString()), ing_data);
-				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
-				httpService.url = Constants.SERVER_URL + "/addOwnRecipe";
-				httpService.method = "POST";
-				httpService.contentType = "application/json";
-				httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT;
-				httpService.addEventListener(ResultEvent.RESULT, checkSendRecipe);
-				httpService.send(JSON.encode(recipe2));
+				var httpRequest:HttpRequests = new HttpRequests();
+				httpRequest.addOwnRecipeRequest(recipe2);
+				httpRequest.addEventListener(HttpRequestEvent.ADD_OWN_RECIPE_EVENT, checkSendRecipe);
 			}
 		]]>
 	</fx:Script>

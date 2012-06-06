@@ -1,33 +1,32 @@
 // ActionScript file
 	import com.adobe.serialization.json.JSON;
 	
-	import mx.controls.Alert;
-	import mx.rpc.events.ResultEvent;
-	import mx.rpc.http.HTTPService;
+	import events.HttpRequestEvent;
 	
-	import utils.Constants;
+	import mx.controls.Alert;
+	import mx.managers.CursorManager;
+	
+	import utils.HttpRequests;
 	
 	public function sendLogout():void
 	{
-		var httpService:HTTPService = new HTTPService();
-		httpService.url = Constants.SERVER_URL + "/logout";
-		httpService.method = "POST";
-		httpService.contentType = "application/json";
-		httpService.resultFormat = HTTPService.RESULT_FORMAT_TEXT;
-		httpService.addEventListener(ResultEvent.RESULT, setLogoutState);
-		httpService.send("{}");
+		CursorManager.setBusyCursor();
+		var httpRequest:HttpRequests = new HttpRequests();
+		httpRequest.logoutRequest();
+		httpRequest.addEventListener(HttpRequestEvent.LOGIN_EVENT, setLogoutState);
 	}
 	
-	public function setLogoutState(evt:ResultEvent):void
+	public function setLogoutState(evt:HttpRequestEvent):void
 	{
-		var data:Object = JSON.decode(evt.result.toString());
+		CursorManager.removeBusyCursor();
+		var data:Object = JSON.decode(evt.eventData);
 		if(data.success == true)
 		{
 			parentApplication.currentState = "Login";
 		}
 		else if(data.success == false)
 		{
-			Alert.show(evt.result.toString());
+			Alert.show(evt.eventData);
 		}		
 	}
 	
