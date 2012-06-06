@@ -5,8 +5,11 @@
 
 	<fx:Script>
 		<![CDATA[
+			import events.HttpRequestEvent;
+			
 			import mx.collections.ArrayCollection;
 			import mx.core.IFlexDisplayObject;
+			import mx.events.ListEvent;
 			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
 			
@@ -50,18 +53,14 @@
 			public function getRecipes():void{
 				CursorManager.setBusyCursor();
 				
-				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
-				httpService.url = Constants.SERVER_URL + "/listRecipes";
-				httpService.method = "POST";
-				httpService.contentType = "application/json";
-				httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT;
-				httpService.addEventListener(ResultEvent.RESULT, checkGetRecipes);
-				httpService.send();
+				var httpRequest:HttpRequests = new HttpRequests();
+				httpRequest.getRecipesRequest();
+				httpRequest.addEventListener(HttpRequestEvent.GET_RECIPES_EVENT, checkGetRecipes);
 			}
 			
-			private function checkGetRecipes(evt:ResultEvent):void{
+			private function checkGetRecipes(evt:HttpRequestEvent):void{
 				CursorManager.removeBusyCursor();
-				var data:Object = JSON.decode(evt.result.toString());
+				var data:Object = JSON.decode(evt.eventData);
 				if(data.success == false)
 				{
 					Alert.show(data.description);
@@ -70,13 +69,19 @@
 				{
 					ing_data = [];
 					for(var i:int = 0; i < data.length; i++){
-						ing_data.push({name:data[i].name, actions:""});
+						ing_data.push({name:data[i].name});
 					}
 					initDG = new ArrayCollection(ing_data);
 				}		
 				
 			}
 			
+			private function onItemClick(event:ListEvent):void
+			{
+				deleteButton.enabled = true;
+				modifyButton.enabled = true;
+				viewButton.enabled = true;
+			}
 			
 		]]>
 	</fx:Script>
@@ -86,10 +91,13 @@
 	<s:Button x="174" y="61" label="Add recipe from external source" click="showExternalSourceDialog()"/>
 	<s:Button x="400" y="61" label="Import recipes"/>
 	<s:Button x="539" y="61" label="Export recipes"/>
-	<mx:DataGrid x="38" y="145" width="600" height="389" dataProvider="{initDG}">
+	<mx:DataGrid x="38" y="145" width="600" height="389" id="recipes" dataProvider="{initDG}"  itemClick="onItemClick(event);">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Name" dataField="name" width="500"/>
-			<mx:DataGridColumn headerText="Actions" dataField="actions"/>
 		</mx:columns>
 	</mx:DataGrid>
+	<s:Button x="568" y="116" label="Delete" id="deleteButton" enabled="false"/>
+	<s:Button x="490" y="116" label="Modify" id="modifyButton" enabled="false"/>
+	<s:Button x="412" y="116" label="View" id="viewButton" enabled="false"/>
+	<s:Label x="296" y="122" text="Selected Element:"/>
 </s:Group>

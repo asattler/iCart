@@ -7,27 +7,23 @@
 		<![CDATA[
 			import com.adobe.serialization.json.JSON;
 			
+			import events.HttpRequestEvent;
+			
 			import mx.controls.Alert;
 			import mx.managers.CursorManager;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.http.HTTPService;
 			
 			import user.User;
 			
-			import utils.Constants;
+			import utils.HttpRequests;
 			
 			
 			private function sendLogin():void
 			{
 				CursorManager.setBusyCursor();
 				var user2:User = new User(loginEmail.text.toString(), "", "", loginPassword.text.toString());
-				var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService()
-				httpService.url = Constants.SERVER_URL + "/login";
-				httpService.method = "POST";
-				httpService.contentType = "application/json";
-				httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT
-				httpService.addEventListener(ResultEvent.RESULT, checkLogin);
-				httpService.send(JSON.encode(user2));
+				var httpRequest:HttpRequests = new HttpRequests();
+				httpRequest.loginRequest(user2);
+				httpRequest.addEventListener(HttpRequestEvent.LOGIN_EVENT, checkLogin);
 			}
 			
 			private function clearLoginInputs():void {
@@ -35,10 +31,10 @@
 				loginPassword.text = "";
 			}
 			
-			private function checkLogin(evt:ResultEvent):void
+			private function checkLogin(evt:HttpRequestEvent):void
 			{	
 				CursorManager.removeBusyCursor();
-				var data:Object = JSON.decode(evt.result.toString());
+				var data:Object = JSON.decode(evt.eventData);
 				if(data.success == true)
 				{
 					clearLoginInputs();

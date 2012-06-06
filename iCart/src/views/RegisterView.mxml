@@ -6,17 +6,16 @@
 		<![CDATA[
 			import com.adobe.serialization.json.JSON;
 			
+			import events.HttpRequestEvent;
+			
 			import mx.controls.Alert;
-			import mx.core.FlexGlobals;
 			import mx.events.ValidationResultEvent;
 			import mx.managers.CursorManager;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.http.HTTPService;
 			import mx.validators.EmailValidator;
 			
 			import user.User;
 			
-			import utils.Constants;
+			import utils.HttpRequests;
 			
 			private var emailValidator:EmailValidator;
 			
@@ -38,10 +37,10 @@
 				//Alert.show(evt.message);
 			}
 			
-			private function checkRegister(evt:ResultEvent):void
+			private function checkRegister(evt:HttpRequestEvent):void
 			{	
 				CursorManager.removeBusyCursor();
-				var data:Object = JSON.decode(evt.result.toString());
+				var data:Object = JSON.decode(evt.eventData);
 				if(data.success == true)
 				{
 					clearRegisterInputs();
@@ -63,13 +62,9 @@
 				else if(registerPassword.text == registerConfirm.text){
 					CursorManager.setBusyCursor();	
 					var user2:User = new User(registerEmail.text.toString(), registerFirstname.text.toString(), registerLastname.text.toString(), registerPassword.text.toString());
-					var httpService:mx.rpc.http.HTTPService = new mx.rpc.http.HTTPService();
-					httpService.url = Constants.SERVER_URL + "/register";
-					httpService.method = "POST";
-					httpService.contentType = "application/json";
-					httpService.resultFormat = mx.rpc.http.HTTPService.RESULT_FORMAT_TEXT;
-					httpService.addEventListener(ResultEvent.RESULT, checkRegister);
-					httpService.send(JSON.encode(user2));
+					var httpRequest:HttpRequests = new HttpRequests();
+					httpRequest.registerRequest(user2);
+					httpRequest.addEventListener(HttpRequestEvent.REGISTER_EVENT, checkRegister);
 				} else {
 					Alert.show("Passwords don't match");
 				}
