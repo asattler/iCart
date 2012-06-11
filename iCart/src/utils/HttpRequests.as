@@ -100,6 +100,18 @@ package utils
 		{
 			this.dispatchEvent(new HttpRequestEvent(HttpRequestEvent.GET_RECIPES_EVENT, event.result.toString()));
 		}
+		
+		public function getRecipesForExportRequest():void
+		{
+			httpService.url = Constants.SERVER_URL + "/listRecipes";
+			httpService.addEventListener(ResultEvent.RESULT, getRecipesForExportComplete);
+			httpService.send();
+		}
+		private function getRecipesForExportComplete(event:ResultEvent):void
+		{
+			this.dispatchEvent(new HttpRequestEvent(HttpRequestEvent.EXPORT_RECIPE_EVENT, event.result.toString()));
+		}
+		
 			
 	}
 }

@@ -1,35 +1,47 @@
 package recipe
 {
+	import events.HttpRequestEvent;
+	
 	import flash.net.FileReference;
 	import flash.net.FileReferenceList;
 	import flash.net.SharedObject;
+	
+	import mx.controls.Alert;
+	import mx.managers.CursorManager;
+	
+	import utils.HttpRequests;
 	
 	public class RecipeExport
 	{
 		public function RecipeExport()
 		{
-			//Recipes to save
+			getRecipes();			
 			
+			
+		}
+		
+		//Recipes to save
+		private function getRecipes():void
+		{
+			CursorManager.setBusyCursor();
+			var httpRequest:HttpRequests = new HttpRequests();
+			httpRequest.getRecipesForExportRequest();
+			httpRequest.addEventListener(HttpRequestEvent.EXPORT_RECIPE_EVENT, saveFile);
+		}
+		
+		
+		
+		//save File
+		private function saveFile(myData:HttpRequestEvent):void
+		{
+			//remove busy curser
+			CursorManager.removeBusyCursor();
 			
 			//file chooser - location for export
-			var myFilename:FileReference = new FileReference();
-			myFilename.save("Save ALL the tests!!!");
+			var myFile:FileReference = new FileReference();
+			myFile.save(myData.eventData, "Export.iCart");
 			
-			//Erstellen des SharedObject und Herstellen der Verbindung zum lokalen File
-			var mySharedObject:SharedObject = SharedObject.getLocal("fileName");
 			
-			//Beispiel-Array zum Befüllen der lokalen Datei
-			var myArray:Array = new Array();
-			myArray[0] = "text";
-			
-			//Befüllen der Datei
-			mySharedObject.data.fileName = myArray;
-			
-			//Schreiben der Datei
-			mySharedObject.flush();
-			
-			//Laden des Inhaltes
-			myArray[1] = mySharedObject.data.fileName;
 		}
 	}
 }
