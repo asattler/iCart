@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import de.bht.mme2.icart.ocp.recipe.ImportRecipesDTO;
 import de.bht.mme2.icart.ocp.recipe.Recipe;
 import de.bht.mme2.icart.ocp.recipe.RecipeDTO;
 import de.bht.mme2.icart.ocp.recipe.RecipeDao;
@@ -50,15 +49,16 @@ public class ImportRecipesServlet extends HttpServlet{
 					sb.append(s);
 				}
 				
-				ImportRecipesDTO importRecipesDTO = (ImportRecipesDTO) gson.fromJson(sb.toString(), ImportRecipesDTO.class);
+				RecipeDTO[] importRecipesDTO = (RecipeDTO[]) gson.fromJson(sb.toString(), RecipeDTO[].class);
 				
-				if(importRecipesDTO.getRecipes().size() == 0){
+				if(importRecipesDTO.length == 0){
 					status.setSuccess(false);
 					status.setDescription("No Recipes found in file");
 				}
 				else {
 					int num = 0;
-					for(RecipeDTO r : importRecipesDTO.getRecipes()){
+					for(int i=0;i < importRecipesDTO.length;i++){
+						RecipeDTO r = importRecipesDTO[i];
 						Recipe recipe = null;
 						List<User> users;
 						if(r.getId() != null){
@@ -75,8 +75,11 @@ public class ImportRecipesServlet extends HttpServlet{
 							recipe.setUsers(users);
 						} else {
 							users = recipe.getUsers();
-							users.add(user);
-							recipe.setUsers(users);
+							if(!users.contains(user))
+							{
+								users.add(user);
+								recipe.setUsers(users);
+							}
 						}
 						recipeDao.save(recipe);
 						num++;

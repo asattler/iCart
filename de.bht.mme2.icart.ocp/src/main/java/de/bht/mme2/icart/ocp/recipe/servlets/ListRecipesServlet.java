@@ -51,6 +51,9 @@ public class ListRecipesServlet extends HttpServlet {
 			for (Recipe myRecipe : recipes){
 				RecipeDTO rDTO = new RecipeDTO();
 				rDTO.setName(myRecipe.getName());
+				rDTO.setId(myRecipe.getId());
+				rDTO.setIngredients(myRecipe.getIngredients());
+				rDTO.setAmountPortion(myRecipe.getAmountPortion());
 				recipesDTO.add(rDTO);
 			}
 			try {
