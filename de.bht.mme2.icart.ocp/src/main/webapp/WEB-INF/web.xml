@@ -28,6 +28,14 @@
         <servlet-name>ListRecipesServlet</servlet-name>
         <servlet-class>de.bht.mme2.icart.ocp.recipe.servlets.ListRecipesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ImportRecipesServlet</servlet-name>
+        <servlet-class>de.bht.mme2.icart.ocp.recipe.servlets.ImportRecipesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImportRecipesServlet</servlet-name>
+        <url-pattern>/importRecipes</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListRecipesServlet</servlet-name>
         <url-pattern>/listRecipes</url-pattern>
