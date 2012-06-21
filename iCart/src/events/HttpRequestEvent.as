@@ -15,6 +15,7 @@ package events
 		public static const ADD_OWN_RECIPE_EVENT:String = 'Add Own Recipe Event';
 		public static const GET_RECIPES_EVENT:String = 'Get Recipes Event';
 		public static const EXPORT_RECIPE_EVENT:String = 'Export Recipes Event';
+		public static const IMPORT_RECIPE_EVENT:String = 'Import Recipes Event';
 		public function HttpRequestEvent(type:String, data:String = null)
 		{
 			super(type);

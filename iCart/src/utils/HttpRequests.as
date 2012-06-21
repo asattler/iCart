@@ -112,6 +112,17 @@ package utils
 			this.dispatchEvent(new HttpRequestEvent(HttpRequestEvent.EXPORT_RECIPE_EVENT, event.result.toString()));
 		}
 		
+		public function sendRecipesForImportRequest(recipes:String):void
+		{
+			httpService.url = Constants.SERVER_URL + "/importRecipes";
+			httpService.addEventListener(ResultEvent.RESULT, sendRecipesForImportComplete);
+			httpService.send(recipes);
+		}
+		private function sendRecipesForImportComplete(event:ResultEvent):void
+		{
+			this.dispatchEvent(new HttpRequestEvent(HttpRequestEvent.IMPORT_RECIPE_EVENT, event.result.toString()));
+		}
+		
 			
 	}
 }

@@ -14,6 +14,7 @@
 			import mx.managers.PopUpManager;
 			
 			import recipe.RecipeExport;
+			import recipe.RecipeImport;
 			
 			import views.dialogs.RecipeAddExternal;
 			import views.dialogs.RecipeAddOwn;
@@ -84,6 +85,11 @@
 				var myRecipeExport:RecipeExport = new RecipeExport();
 			}
 			
+			private function importRecipes():void
+			{
+				var myRecipeImport:RecipeImport = new RecipeImport();	
+			}
+			
 
 			private function onItemClick(event:ListEvent):void
 			{
@@ -99,7 +105,7 @@
 	<s:Button x="720" y="10" label="Logout" click="sendLogout();"/>
 	<s:Button x="39" y="61" label="Add own recipe" click="showInternalSourceDialog()"/>
 	<s:Button x="174" y="61" label="Add recipe from external source" click="showExternalSourceDialog()"/>
-	<s:Button x="400" y="61" label="Import recipes"/>
+	<s:Button x="400" y="61" label="Import recipes" click="importRecipes();"/>
 	<s:Button x="539" y="61" label="Export recipes" click="exportRecipe();"/>
 	
 	<mx:DataGrid x="38" y="145" width="600" height="389" id="recipes" dataProvider="{initDG}"  itemClick="onItemClick(event);">

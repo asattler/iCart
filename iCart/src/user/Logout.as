@@ -13,7 +13,7 @@
 		CursorManager.setBusyCursor();
 		var httpRequest:HttpRequests = new HttpRequests();
 		httpRequest.logoutRequest();
-		httpRequest.addEventListener(HttpRequestEvent.LOGIN_EVENT, setLogoutState);
+		httpRequest.addEventListener(HttpRequestEvent.LOGOUT_EVENT, setLogoutState);
 	}
 	
 	public function setLogoutState(evt:HttpRequestEvent):void
