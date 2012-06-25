@@ -87,7 +87,7 @@ package utils
 		}
 		private function addOwnRecipeComplete(event:ResultEvent):void
 		{
-			this.dispatchEvent(new HttpRequestEvent(HttpRequestEvent.ADD_EXTERNAL_RECIPE_EVENT, event.result.toString()));
+			this.dispatchEvent(new HttpRequestEvent(HttpRequestEvent.ADD_OWN_RECIPE_EVENT, event.result.toString()));
 		}
 		
 		public function getRecipesRequest():void

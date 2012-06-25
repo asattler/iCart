@@ -36,6 +36,8 @@
 			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
 			
+			import org.osmf.metadata.StringIdentifier;
+			
 			import recipe.Recipe;
 			
 			import utils.HttpRequests;
@@ -62,14 +64,12 @@
 			}
 			
 			private function checkSendRecipe(evt:HttpRequestEvent):void{
-				
 					CursorManager.removeBusyCursor();
 					var data:Object = JSON.decode(evt.eventData);
 					if(data.success == true)
 					{
 						clearRecipeInputs();
 						handleCloseEvent();
-						
 					}
 					else if(data.success == false)
 					{
