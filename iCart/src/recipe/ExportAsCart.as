@@ -1,10 +1,13 @@
 package recipe
 {
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.net.FileReference;
+	import flash.utils.ByteArray;
 	
-	import mx.collections.ArrayCollection;
+	import mx.controls.Alert;
 	import mx.managers.CursorManager;
-
+	
 	public class ExportAsCart
 	{
 		public function ExportAsCart(data:Array):void
@@ -17,7 +20,7 @@ package recipe
 		private function parseDataToCSV(data:Array):void{
 			data.sortOn("name", Array.CASEINSENSITIVE);
 			
-			var myData : String = "Menge;Bezeichnung\r\n";
+			var myData : String = "Amount;Ingredient\r\n";
 			for(var i:int=0; i < data.length; i++)
 			{
 				myData += data[i]['amount']+";"+data[i]['name']+"\r\n";
@@ -30,9 +33,18 @@ package recipe
 			//remove busy curser
 			CursorManager.removeBusyCursor();
 			
+			var bytes:ByteArray = new ByteArray();
+			bytes.writeMultiByte(myData, "unicode");
+			
 			//file chooser - location for export
+			
 			var myFile:FileReference = new FileReference();
-			myFile.save(myData, "myCart.csv");
+			myFile.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event):void{
+				Alert.show("File is not writable");
+			});
+			
+			myFile.save(bytes, "myCart.csv");	
+			
 			
 			
 		}
