@@ -98,7 +98,15 @@
 				viewButton.enabled = true;
 			}
 
-			
+			private function deleteRecipe():void
+			{
+				Long id;
+				id = recipes_data[recipes.selectedIndex].getId;
+				
+				CursorManager.setBusyCursor();
+				var httpRequest:HttpRequests = new HttpRequests();
+				
+			}
 		]]>
 	</fx:Script>
 	

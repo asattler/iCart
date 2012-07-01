@@ -23,9 +23,10 @@ public class ListRecipesServlet extends HttpServlet {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 5600493930214681697L;
+
 	private UserDao userDao = new UserDao();
 	
-	private static final long serialVersionUID = 1L;
 
 	/*
 	 * based on how to by edwin

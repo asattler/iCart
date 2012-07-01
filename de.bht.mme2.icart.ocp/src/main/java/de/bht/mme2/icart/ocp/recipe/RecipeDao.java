@@ -48,4 +48,16 @@ public class RecipeDao {
 		em.clear();
 		em.getEntityManagerFactory().getCache().evictAll();
 	}
+	
+	public void deleteRecipeById(Long id){
+		Recipe myRecipe;
+		try{
+			em.getTransaction().begin();
+			myRecipe = findById(id);
+			em.remove(myRecipe);
+			em.getTransaction().commit();
+		} finally {
+			em.close();
+		}
+	}
 }
