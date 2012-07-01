@@ -7,12 +7,15 @@
 		<![CDATA[
 			import events.HttpRequestEvent;
 			
+			import flash.sampler.NewObjectSample;
+			
 			import mx.collections.ArrayCollection;
 			import mx.core.IFlexDisplayObject;
 			import mx.events.ListEvent;
 			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
 			
+			import recipe.ExportAsCart;
 			import recipe.RecipeExport;
 			import recipe.RecipeImport;
 			
@@ -23,6 +26,7 @@
 		
 		
 			public var ing_data:Array = [];
+			public var recipes_data:Array = [];
 			
 			[Bindable]
 			public var initDG:ArrayCollection;
@@ -72,6 +76,7 @@
 				{
 					ing_data = [];
 					for(var i:int = 0; i < data.length; i++){
+						recipes_data.push({id: data[i].id, name:data[i].name, ingredients:data[i].ingredients});
 						ing_data.push({name:data[i].name});
 					}
 					initDG = new ArrayCollection(ing_data);
@@ -97,6 +102,19 @@
 				deleteButton.enabled = true;
 				modifyButton.enabled = true;
 				viewButton.enabled = true;
+				shoppingListButton.enabled = true;
+			}
+			
+			private function generateShoppingList():void
+			{
+				var data : Array = new Array();
+				for(var i:int = 0; i < recipes.selectedIndices.length; i++){
+					for(var o:int = 0; o < recipes_data[recipes.selectedIndices[i]]['ingredients'].length; o++){
+						data.push({name:recipes_data[recipes.selectedIndices[i]]['ingredients'][o]['name'], amount:recipes_data[recipes.selectedIndices[i]]['ingredients'][o]['amount']});
+					}						
+					
+				}
+				new ExportAsCart(data);
 			}
 
 			
@@ -118,5 +136,6 @@
 	<s:Button x="568" y="116" label="Delete" id="deleteButton" enabled="false"/>
 	<s:Button x="490" y="116" label="Modify" id="modifyButton" enabled="false"/>
 	<s:Button x="412" y="116" label="View" id="viewButton" enabled="false"/>
-	<s:Label x="296" y="122" text="Selected Element:"/>
+	<s:Button x="253" y="116" label="Generate Shopping List" id="shoppingListButton" enabled="false" click="generateShoppingList()"/>
+	<s:Label x="126" y="122" text="Selected Element(s):"/>
 </s:Group>
