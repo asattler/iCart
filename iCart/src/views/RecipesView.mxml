@@ -117,14 +117,20 @@
 				new ExportAsCart(data);
 			}
 
-			private function deleteRecipe():void
+			private function getIdTodeleteRecipe():void
 			{
-				Long id;
-				id = recipes_data[recipes.selectedIndex].getId;
+				var id : int = recipes_data[recipes.selectedIndex].id;
+				
 				
 				CursorManager.setBusyCursor();
 				var httpRequest:HttpRequests = new HttpRequests();
-				
+				httpRequest.addEventListener(HttpRequestEvent.DELETE_RECIPE_EVENT, deleteRecipe);
+			}
+			private function deleteRecipe():void
+			{
+				CursorManager.removeBusyCursor();
+				getRecipes();
+			
 			}
 		]]>
 	</fx:Script>
