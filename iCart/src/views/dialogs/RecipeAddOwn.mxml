@@ -16,7 +16,6 @@
 	
 	<s:Label x="10" y="96" text="Ingredients"/>
 	<s:Button x="318" y="236" label="Submit" click="sendRecipe();"/>
-	<s:Button x="240" y="236" label="Cancel"/>
 	<mx:DataGrid x="10" y="116" height="94" width="378" id="dg_ingredients" dataProvider="{initDG}" editable="true">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Amount" dataField="amount"/>
