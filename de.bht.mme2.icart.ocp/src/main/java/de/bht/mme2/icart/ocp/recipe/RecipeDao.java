@@ -50,10 +50,9 @@ public class RecipeDao {
 	}
 	
 	public void deleteRecipeById(Long id){
-		Recipe myRecipe;
 		try{
 			em.getTransaction().begin();
-			myRecipe = findById(id);
+			Recipe myRecipe = findById(id);
 			em.remove(myRecipe);
 			em.getTransaction().commit();
 		} finally {
