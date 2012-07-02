@@ -119,15 +119,20 @@
 
 			private function getIdTodeleteRecipe():void
 			{
+				if(recipes.selectedIndices.length > 1) Alert.show("You may only delete one Recipe at a time");
+				else {
 				var id : int = recipes_data[recipes.selectedIndex].id;
 				
 				
-				CursorManager.setBusyCursor();
-				var httpRequest:HttpRequests = new HttpRequests();
-				httpRequest.addEventListener(HttpRequestEvent.DELETE_RECIPE_EVENT, deleteRecipe);
+					CursorManager.setBusyCursor();
+					var httpRequest:HttpRequests = new HttpRequests();
+					httpRequest.deleteRecipeRequest("{id:"+id+"}");
+					httpRequest.addEventListener(HttpRequestEvent.DELETE_RECIPE_EVENT, deleteRecipe);
+				}
 			}
-			private function deleteRecipe():void
+			private function deleteRecipe(evt:HttpRequestEvent):void
 			{
+				Alert.show("delete done, now refreshing");
 				CursorManager.removeBusyCursor();
 				getRecipes();
 			
@@ -147,7 +152,7 @@
 		</mx:columns>
 	</mx:DataGrid>
 	
-	<s:Button x="568" y="116" label="Delete" id="deleteButton" enabled="false"/>
+	<s:Button x="568" y="116" label="Delete" id="deleteButton" enabled="false" click="getIdTodeleteRecipe()"/>
 	<s:Button x="490" y="116" label="Modify" id="modifyButton" enabled="false"/>
 	<s:Button x="412" y="116" label="View" id="viewButton" enabled="false"/>
 	<s:Button x="253" y="116" label="Generate Shopping List" id="shoppingListButton" enabled="false" click="generateShoppingList()"/>
