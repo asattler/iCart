@@ -19,6 +19,7 @@ package recipe
 		private var iCartTypes:FileFilter = new FileFilter("iCart Files (*.iCart)", "*.iCart");
 		private var allTypes:Array = new Array(iCartTypes);
 		private var myFile:FileReference = new FileReference();
+		private var httpRequest:HttpRequests = new HttpRequests();
 		
 		public function RecipeImport()
 		{
@@ -54,7 +55,6 @@ package recipe
 			
 			
 			CursorManager.setBusyCursor();
-			var httpRequest:HttpRequests = new HttpRequests();
 			httpRequest.sendRecipesForImportRequest(data);
 			httpRequest.addEventListener(HttpRequestEvent.IMPORT_RECIPE_EVENT, requestComplete);
 		}
@@ -65,6 +65,7 @@ package recipe
 			if(data.success == "true"){
 				Alert.show(data.description);
 				
+				httpRequest.getRecipesRequest();
 			}else {
 				Alert.show(data.description);
 			}

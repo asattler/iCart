@@ -6,23 +6,23 @@ package recipe
 	{
 		private var _name:String;
 		private var _amountPortion:int;
-		private var _ingredient:Array;
+		private var _ingredients:Array;
 		
 		
 		public function Recipe(n:String, a:int, i:Array){
 			_name = n;
 			_amountPortion = a;
-			_ingredient = i;
+			_ingredients = i;
 		}
 		
-		public function get ingredient():Array
+		public function get ingredients():Array
 		{
-			return _ingredient;
+			return _ingredients;
 		}
 
-		public function set ingredient(value:Array):void
+		public function set ingredients(value:Array):void
 		{
-			_ingredient = value;
+			_ingredients = value;
 		}
 
 		public function get amountPortion():int

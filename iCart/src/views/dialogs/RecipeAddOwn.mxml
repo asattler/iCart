@@ -20,7 +20,7 @@
 	<mx:DataGrid x="10" y="116" height="94" width="378" id="dg_ingredients" dataProvider="{initDG}" editable="true">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Amount" dataField="amount"/>
-			<mx:DataGridColumn headerText="Ingredient" dataField="ingredient"/>
+			<mx:DataGridColumn headerText="Ingredient" dataField="name"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<s:Button x="10" y="218" label="Add Ingredient" click="addIngredient()"/>
@@ -55,7 +55,7 @@
 			
 			private function addIngredient():void
 			{
-				ing_data.push({amount:"1kg", ingredient:"foo"});	
+				ing_data.push({amount:"1kg", name:"foo"});	
 				initDG = new ArrayCollection(ing_data);
 			}
 			

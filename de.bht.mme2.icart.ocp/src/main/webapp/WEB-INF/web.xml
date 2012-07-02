@@ -32,6 +32,14 @@
         <servlet-name>ImportRecipesServlet</servlet-name>
         <servlet-class>de.bht.mme2.icart.ocp.recipe.servlets.ImportRecipesServlet</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>DeleteRecipeServlet</servlet-name>
+        <servlet-class>de.bht.mme2.icart.ocp.recipe.servlets.DeleteRecipeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteRecipeServlet</servlet-name>
+        <url-pattern>/deleteRecipe</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ImportRecipesServlet</servlet-name>
         <url-pattern>/importRecipes</url-pattern>

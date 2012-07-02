@@ -123,6 +123,16 @@ package utils
 			this.dispatchEvent(new HttpRequestEvent(HttpRequestEvent.IMPORT_RECIPE_EVENT, event.result.toString()));
 		}
 		
+		public function deleteRecipeRequest(id:int):void
+		{
+			httpService.url = Constants.SERVER_URL + "/deleteRecipe";
+			httpService.addEventListener(ResultEvent.RESULT, deleteRecipeComplete);
+			httpService.send({id:id});
+		}
+		private function deleteRecipeComplete(event:ResultEvent):void
+		{
+			this.dispatchEvent(new HttpRequestEvent(HttpRequestEvent.DELETE_RECIPE_EVENT, event.result.toString()));
+		}
 			
 	}
 }
