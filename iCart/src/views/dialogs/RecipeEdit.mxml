@@ -2,7 +2,7 @@
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" close="handleCloseEvent();">
-
+	
 	<mx:Form x="10" y="6">
 		<mx:FormItem label="Name">
 			<s:TextInput id="recipeName"/>
@@ -41,12 +41,19 @@
 			
 			import utils.HttpRequests;
 			
+			public var myRecipe:Object;
 			public var ing_data:Array = [];
-			//ing_data.push({amount:"5kg", ingredient:"Kartoffeln"});
-			//ing_data.push({amount:"2kg", ingredient:"Moehren"});
 			
 			[Bindable]
 			public var initDG:ArrayCollection;
+			
+			public function init():void
+			{
+				recipeName.text = myRecipe.name;
+				amountPortions.text = myRecipe.amountPortion;
+				ing_data = myRecipe.ingredients;
+				initDG = new ArrayCollection(ing_data);
+			}
 			
 			private function handleCloseEvent():void{
 				PopUpManager.removePopUp(this);
@@ -54,7 +61,7 @@
 			
 			private function addIngredient():void
 			{
-				ing_data.push({amount:"1kg", name:"foo"});	
+				ing_data.push({amount:"", name:""});	
 				initDG = new ArrayCollection(ing_data);
 			}
 			
@@ -63,18 +70,18 @@
 			}
 			
 			private function checkSendRecipe(evt:HttpRequestEvent):void{
-					CursorManager.removeBusyCursor();
-					var data:Object = JSON.decode(evt.eventData);
-					if(data.success == true)
-					{
-						clearRecipeInputs();
-						handleCloseEvent();
-					}
-					else if(data.success == false)
-					{
-						Alert.show(data.description);
-					}		
-		
+				CursorManager.removeBusyCursor();
+				var data:Object = JSON.decode(evt.eventData);
+				if(data.success == true)
+				{
+					clearRecipeInputs();
+					handleCloseEvent();
+				}
+				else if(data.success == false)
+				{
+					Alert.show(data.description);
+				}		
+				
 			}
 			
 			private function clearRecipeInputs():void {
@@ -86,7 +93,7 @@
 			
 			private function sendRecipe():void{
 				CursorManager.setBusyCursor();	
-				var recipe2:Recipe = new Recipe(recipeName.text.toString(), int(amountPortions.text.toString()), ing_data, 0);
+				var recipe2:Recipe = new Recipe(recipeName.text.toString(), int(amountPortions.text.toString()), ing_data, myRecipe.id);
 				var httpRequest:HttpRequests = new HttpRequests();
 				httpRequest.addOwnRecipeRequest(recipe2);
 				httpRequest.addEventListener(HttpRequestEvent.ADD_OWN_RECIPE_EVENT, checkSendRecipe);
@@ -95,6 +102,3 @@
 	</fx:Script>
 	
 </s:TitleWindow>
-
-
-

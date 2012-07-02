@@ -19,6 +19,7 @@
 			
 			import views.dialogs.RecipeAddExternal;
 			import views.dialogs.RecipeAddOwn;
+			import views.dialogs.RecipeEdit;
 			
 			include "../user/Logout.as";
 		
@@ -44,6 +45,18 @@
 					RecipeAddOwn, true);
 				PopUpManager.centerPopUp(intSrcDialog);
 				intSrcDialog.addEventListener("close", handleClosedWindow);
+			}
+			
+			private function showEditInternalDialog():void
+			{
+				if(recipes.selectedIndices.length > 1) Alert.show("You may only edit one recipe at a time");
+				else {
+					var editIntDialog:RecipeEdit = RecipeEdit(PopUpManager.createPopUp(this,
+					RecipeEdit, true));
+					editIntDialog.myRecipe = recipes_data[recipes.selectedIndex];
+					PopUpManager.centerPopUp(editIntDialog);
+					editIntDialog.init();
+				}
 			}
 			
 			private function handleClosedWindow(evt:Event):void{
@@ -74,7 +87,7 @@
 				{
 					ing_data = [];
 					for(var i:int = 0; i < data.length; i++){
-						recipes_data.push({id: data[i].id, name:data[i].name, ingredients:data[i].ingredients});
+						recipes_data.push({id: data[i].id, name:data[i].name, ingredients:data[i].ingredients, amountPortion:data[i].amountPortion});
 						ing_data.push({name:data[i].name});
 					}
 					initDG = new ArrayCollection(ing_data);
@@ -99,7 +112,6 @@
 			{
 				deleteButton.enabled = true;
 				modifyButton.enabled = true;
-				viewButton.enabled = true;
 				shoppingListButton.enabled = true;
 			}
 			
@@ -168,10 +180,9 @@
 	</mx:DataGrid>
 	
 	<s:Button x="568" y="156" label="Delete" id="deleteButton" enabled="false" click="getIdTodeleteRecipe()"/>
-	<s:Button x="490" y="156" label="Modify" id="modifyButton" enabled="false"/>
-	<s:Button x="412" y="156" label="View" id="viewButton" enabled="false"/>
-	<s:Button x="253" y="156" label="Generate Shopping List" id="shoppingListButton" enabled="false" click="generateShoppingList()"/>
-	<s:Label x="126" y="162" text="Selected Element(s):"/>
+	<s:Button x="474" y="156" label="View/Modify" id="modifyButton" enabled="false" click="showEditInternalDialog()"/>
+	<s:Button x="313" y="156" label="Generate Shopping List" id="shoppingListButton" enabled="false" click="generateShoppingList()"/>
+	<s:Label x="186" y="162" text="Selected Element(s):"/>
 	<s:Label x="421" y="121" text="Search: "/>
 	<s:TextInput x="490" y="116" width="148" id="search" change="filterGrid(search.text);"/>
 </s:Group>

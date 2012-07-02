@@ -4,17 +4,29 @@ package recipe
 
 	public class Recipe
 	{
+		private var _id:int;
 		private var _name:String;
 		private var _amountPortion:int;
 		private var _ingredients:Array;
 		
 		
-		public function Recipe(n:String, a:int, i:Array){
+		public function Recipe(n:String, a:int, i:Array, id:int){
 			_name = n;
 			_amountPortion = a;
 			_ingredients = i;
+			_id = id;
 		}
 		
+		public function get id():int
+		{
+			return _id;
+		}
+
+		public function set id(value:int):void
+		{
+			_id = value;
+		}
+
 		public function get ingredients():Array
 		{
 			return _ingredients;
