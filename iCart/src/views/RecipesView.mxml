@@ -127,7 +127,7 @@
 	<s:Button x="400" y="61" label="Import recipes" click="importRecipes();"/>
 	<s:Button x="539" y="61" label="Export recipes" click="exportRecipe();"/>
 	
-	<mx:DataGrid x="38" y="145" width="600" height="389" id="recipes" dataProvider="{initDG}"  itemClick="onItemClick(event);">
+	<mx:DataGrid x="38" y="145" width="600" height="389" id="recipes" dataProvider="{initDG}"  itemClick="onItemClick(event);" editable="false">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Name" dataField="name" width="500"/>
 		</mx:columns>
