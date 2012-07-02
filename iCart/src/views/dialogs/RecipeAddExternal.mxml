@@ -67,5 +67,5 @@
 	<s:Label x="9" y="39" text="URL:"/>
 	<s:TextInput x="46" y="33" width="327" id="url"/>
 	<s:Button x="303" y="86" label="Submit" id="submit" click="sendRecipe();"/>
-	<s:Label x="10" y="63" text="Supported Sources: Chefkoch.de"/>
+	<s:Label x="10" y="63" text="Supported Sources: Chefkoch.de, DasKochRezept.de"/>
 </s:TitleWindow>
