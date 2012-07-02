@@ -47,22 +47,20 @@ public class AddOwnServlet extends HttpServlet {
 			}
 			RecipeDTO recipeDTO = (RecipeDTO) gson.fromJson(sb.toString(), RecipeDTO.class);
 
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
 			
-			System.out.println(sb.toString());
-			
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
 			
 			Status status = new Status();
-
-			if(recipeDTO.getName() != null){
-				Recipe recipe = new Recipe();
+			Recipe recipe;
+			if(recipeDTO.getId() > 0){
+				recipe = recipeDao.findById(recipeDTO.getId());
+				recipe.setName(recipeDTO.getName());
+				recipe.setAmountPortion(recipeDTO.getAmountPortion());
+				recipe.setIngredients(recipeDTO.getIngredients());
+				recipeDao.save(recipe);
+				status.setSuccess(true);
+			}
+			else if(recipeDTO.getName() != null){
+				recipe = new Recipe();
 				recipe.setName(recipeDTO.getName());
 				recipe.setAmountPortion(recipeDTO.getAmountPortion());
 				recipe.setIngredients(recipeDTO.getIngredients());
