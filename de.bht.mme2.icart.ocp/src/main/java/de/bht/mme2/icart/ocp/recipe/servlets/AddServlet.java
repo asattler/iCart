@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import de.bht.mme2.icart.ocp.parsers.ChefkochParser;
+import de.bht.mme2.icart.ocp.parsers.DasKochRezeptParser;
 import de.bht.mme2.icart.ocp.parsers.IParser;
 import de.bht.mme2.icart.ocp.recipe.Recipe;
 import de.bht.mme2.icart.ocp.recipe.RecipeDao;
@@ -61,6 +62,9 @@ public class AddServlet extends HttpServlet {
 				} else {
 					if(url.getUrl().contains("chefkoch.de")){
 						parser = new ChefkochParser();	
+					} else if(url.getUrl().contains("daskochrezept.de")){
+						parser = new DasKochRezeptParser();
+						System.out.println("daskochrezept.de");
 					}
 					
 					if(parser != null){
