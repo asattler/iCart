@@ -7,8 +7,6 @@
 		<![CDATA[
 			import events.HttpRequestEvent;
 			
-			import flash.sampler.NewObjectSample;
-			
 			import mx.collections.ArrayCollection;
 			import mx.core.IFlexDisplayObject;
 			import mx.events.ListEvent;
@@ -137,6 +135,23 @@
 				getRecipes();
 			
 			}
+			
+			private function filterGrid(s:String):void
+			{
+				var data : Array;
+				if(s.length == 0){
+					data = ing_data;
+				}
+				else {
+					data = [];
+					for(var i:int = 0; i < ing_data.length; i++){
+						if(ing_data[i].name.toString().toLowerCase().indexOf(s.toLowerCase()) !== -1){
+							data.push(ing_data[i]);
+						}
+					}
+				}
+				initDG = new ArrayCollection(data);
+			}
 		]]>
 	</fx:Script>
 	
@@ -146,15 +161,17 @@
 	<s:Button x="400" y="61" label="Import recipes" click="importRecipes();"/>
 	<s:Button x="539" y="61" label="Export recipes" click="exportRecipe();"/>
 	
-	<mx:DataGrid x="38" y="145" width="600" height="389" id="recipes" dataProvider="{initDG}"  itemClick="onItemClick(event);" editable="false" allowMultipleSelection="true">
+	<mx:DataGrid x="38" y="185" width="600" height="327" id="recipes" dataProvider="{initDG}"  itemClick="onItemClick(event);" editable="false" allowMultipleSelection="true">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Name" dataField="name" width="500"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
-	<s:Button x="568" y="116" label="Delete" id="deleteButton" enabled="false" click="getIdTodeleteRecipe()"/>
-	<s:Button x="490" y="116" label="Modify" id="modifyButton" enabled="false"/>
-	<s:Button x="412" y="116" label="View" id="viewButton" enabled="false"/>
-	<s:Button x="253" y="116" label="Generate Shopping List" id="shoppingListButton" enabled="false" click="generateShoppingList()"/>
-	<s:Label x="126" y="122" text="Selected Element(s):"/>
+	<s:Button x="568" y="156" label="Delete" id="deleteButton" enabled="false" click="getIdTodeleteRecipe()"/>
+	<s:Button x="490" y="156" label="Modify" id="modifyButton" enabled="false"/>
+	<s:Button x="412" y="156" label="View" id="viewButton" enabled="false"/>
+	<s:Button x="253" y="156" label="Generate Shopping List" id="shoppingListButton" enabled="false" click="generateShoppingList()"/>
+	<s:Label x="126" y="162" text="Selected Element(s):"/>
+	<s:Label x="421" y="121" text="Search: "/>
+	<s:TextInput x="490" y="116" width="148" id="search" change="filterGrid(search.text);"/>
 </s:Group>
