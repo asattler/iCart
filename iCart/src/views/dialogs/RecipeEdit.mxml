@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" close="handleCloseEvent();">
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="332" close="handleCloseEvent();">
 	
 	<mx:Form x="10" y="6">
 		<mx:FormItem label="Name">
@@ -15,14 +15,16 @@
 	
 	
 	<s:Label x="10" y="96" text="Ingredients"/>
-	<s:Button x="318" y="236" label="Submit" click="sendRecipe();"/>
-	<mx:DataGrid x="10" y="116" height="94" width="378" id="dg_ingredients" dataProvider="{initDG}" editable="true">
+	<s:Button x="318" y="266" label="Submit" click="sendRecipe();"/>
+	<mx:DataGrid x="10" y="146" height="94" width="378" id="dg_ingredients" dataProvider="{initDG}" itemClick="onItemClick(event);" editable="true">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Amount" dataField="amount"/>
 			<mx:DataGridColumn headerText="Ingredient" dataField="name"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<s:Button x="10" y="218" label="Add Ingredient" click="addIngredient()"/>
+	<s:Button x="10" y="248" label="Add Ingredient" click="addIngredient()"/>
+	<s:Button x="318" y="117" label="Delete" id="deleteButton" enabled="false" click="removeSelectedIngredient()" />
+	<s:Label x="225" y="123" text="Selected Item:"/>
 	
 	<fx:Script>
 		<![CDATA[
@@ -32,6 +34,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.events.ListEvent;
 			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
 			
@@ -57,7 +60,6 @@
 			
 			private function handleCloseEvent():void{
 				PopUpManager.removePopUp(this);
-				this.closeButton.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 			}
 			
 			private function addIngredient():void
@@ -83,6 +85,17 @@
 					Alert.show(data.description);
 				}		
 				
+			}
+			
+			private function onItemClick(event:ListEvent):void
+			{
+				deleteButton.enabled = true;
+			}
+			
+			private function removeSelectedIngredient():void
+			{
+				ing_data.splice(dg_ingredients.selectedIndex, 1);
+				initDG = new ArrayCollection(ing_data);
 			}
 			
 			private function clearRecipeInputs():void {
