@@ -95,6 +95,9 @@
 						recipes_data.push({id: data[i].id, name:data[i].name, ingredients:data[i].ingredients, amountPortion:data[i].amountPortion});
 						ing_data.push({name:data[i].name});
 					}
+					deleteButton.enabled = false;
+					modifyButton.enabled = false;
+					shoppingListButton.enabled = false;
 					initDG = new ArrayCollection(ing_data);
 				}		
 				
