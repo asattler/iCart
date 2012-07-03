@@ -141,7 +141,6 @@
 			}
 			private function deleteRecipe(evt:HttpRequestEvent):void
 			{
-				Alert.show("delete done, now refreshing");
 				CursorManager.removeBusyCursor();
 				getRecipes();
 			
