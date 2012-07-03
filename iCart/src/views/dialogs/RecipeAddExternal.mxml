@@ -9,6 +9,7 @@
 			import events.HttpRequestEvent;
 			
 			import mx.controls.Alert;
+			import mx.events.CloseEvent;
 			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
 			
@@ -22,11 +23,7 @@
 				CursorManager.removeBusyCursor();
 				PopUpManager.removePopUp(this);
 			}
-			
-			private function handleCloseTimerEvent(event:TimerEvent):void{
-				handleCloseEvent();
-			}
-			
+						
 			private function sendRecipe():void
 			{
 				
@@ -45,10 +42,8 @@
 				if(data.success == true)
 				{
 					clearRecipeInputs();
-					//parentApplication.currentState = "Login";
-					timer = new Timer(1000, 1);
-					timer.addEventListener(TimerEvent.TIMER_COMPLETE, handleCloseTimerEvent);
-					timer.start();
+					handleCloseEvent();
+					this.closeButton.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 
 				}
 				else if(data.success == false)

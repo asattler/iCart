@@ -35,7 +35,7 @@
 				var extSrcDialog:IFlexDisplayObject = PopUpManager.createPopUp(this,
 					RecipeAddExternal, true);
 				PopUpManager.centerPopUp(extSrcDialog);
-				extSrcDialog.addEventListener("close", handleClosedWindow);
+				extSrcDialog.addEventListener(Event.CLOSE, handleClosedWindow);
 				
 			}
 			
@@ -44,7 +44,7 @@
 				var intSrcDialog:IFlexDisplayObject = PopUpManager.createPopUp(this,
 					RecipeAddOwn, true);
 				PopUpManager.centerPopUp(intSrcDialog);
-				intSrcDialog.addEventListener("close", handleClosedWindow);
+				intSrcDialog.addEventListener(Event.CLOSE, handleClosedWindow);
 			}
 			
 			private function showEditInternalDialog():void
@@ -60,8 +60,7 @@
 			}
 			
 			private function handleClosedWindow(evt:Event):void{
-				
-				getRecipes();
+				getRecipes()
 			}
 			
 			private function initData():void{

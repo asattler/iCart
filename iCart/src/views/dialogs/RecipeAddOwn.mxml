@@ -50,6 +50,7 @@
 			
 			private function handleCloseEvent():void{
 				PopUpManager.removePopUp(this);
+				this.closeButton.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 			}
 			
 			private function addIngredient():void
