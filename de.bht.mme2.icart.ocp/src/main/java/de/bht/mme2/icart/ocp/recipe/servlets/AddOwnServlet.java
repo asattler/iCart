@@ -57,6 +57,9 @@ public class AddOwnServlet extends HttpServlet {
 				recipe.setAmountPortion(recipeDTO.getAmountPortion());
 				recipe.setIngredients(recipeDTO.getIngredients());
 				recipeDao.save(recipe);
+				List<Recipe> r = user.getRecipes();
+				r.add(recipe);
+				userDao.save(user);
 				status.setSuccess(true);
 			}
 			else if(recipeDTO.getName() != null){
@@ -68,6 +71,9 @@ public class AddOwnServlet extends HttpServlet {
 				users.add(user);
 				recipe.setUsers(users);
 				recipeDao.save(recipe);
+				List<Recipe> r = user.getRecipes();
+				r.add(recipe);
+				userDao.save(user);
 				status.setSuccess(true);
 			}else{
 				status.setSuccess(false);
