@@ -54,7 +54,10 @@ public class RecipeDao {
 			em.getTransaction().begin();
 			Recipe myRecipe = findById(id);
 			em.remove(myRecipe);
+			em.flush();
 			em.getTransaction().commit();
+			em.clear();
+			em.getEntityManagerFactory().getCache().evictAll();
 		} finally {
 			em.close();
 		}
