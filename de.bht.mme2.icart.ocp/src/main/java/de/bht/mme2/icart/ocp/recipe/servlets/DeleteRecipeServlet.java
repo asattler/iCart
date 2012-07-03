@@ -1,6 +1,7 @@
 package de.bht.mme2.icart.ocp.recipe.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import de.bht.mme2.icart.ocp.recipe.DeleteRecipeDTO;
+import de.bht.mme2.icart.ocp.recipe.Recipe;
 import de.bht.mme2.icart.ocp.recipe.RecipeDao;
 import de.bht.mme2.icart.ocp.user.User;
 import de.bht.mme2.icart.ocp.user.UserDao;
@@ -44,8 +46,14 @@ public class DeleteRecipeServlet extends HttpServlet{
 			while ((s = request.getReader().readLine()) != null) {
 				sb.append(s);
 			}
-			System.out.println(sb.toString());
 			DeleteRecipeDTO deleteRecipeDTO = (DeleteRecipeDTO) gson.fromJson(sb.toString(), DeleteRecipeDTO.class);
+			Recipe r = recipeDao.findById(deleteRecipeDTO.getId());
+			List<User> users = r.getUsers();
+			for(User u : users){
+				u.getRecipes().remove(r);
+				userDao.save(u);
+			}
+			
 			recipeDao.deleteRecipeById(deleteRecipeDTO.getId());
 			status.setSuccess(true);
 			
