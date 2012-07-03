@@ -55,8 +55,14 @@
 					RecipeEdit, true));
 					editIntDialog.myRecipe = recipes_data[recipes.selectedIndex];
 					PopUpManager.centerPopUp(editIntDialog);
+					editIntDialog.addEventListener(Event.CLOSE, handleClosedWindow);
 					editIntDialog.init();
 				}
+			}
+
+			private function backToOverview():void
+			{
+				parentApplication.currentState = "LoggedIn";
 			}
 			
 			private function handleClosedWindow(evt:Event):void{
@@ -183,4 +189,5 @@
 	<s:Label x="186" y="162" text="Selected Element(s):"/>
 	<s:Label x="421" y="121" text="Search: "/>
 	<s:TextInput x="490" y="116" width="148" id="search" change="filterGrid(search.text);"/>
+	<s:Button x="720" y="39" label="Back" click="backToOverview()"/>
 </s:Group>

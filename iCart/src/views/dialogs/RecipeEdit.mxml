@@ -79,6 +79,7 @@
 				{
 					clearRecipeInputs();
 					handleCloseEvent();
+					this.closeButton.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 				}
 				else if(data.success == false)
 				{

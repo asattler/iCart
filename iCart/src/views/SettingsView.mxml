@@ -6,6 +6,11 @@
 	<fx:Script>
 		<![CDATA[
 			include "../user/Logout.as";
+			
+			private function backToOverview():void
+			{
+				parentApplication.currentState = "LoggedIn";
+			}
 		]]>
 	</fx:Script>
 	
@@ -28,4 +33,5 @@
 	<s:Button x="226" y="194" label="Save"/>
 	<s:Button x="56" y="194" label="Cancel"/>
 	<s:Button x="318" y="10" label="Logout" click="sendLogout();"/>
+	<s:Button x="318" y="39" label="Back" click="backToOverview()"/>
 </s:Panel>
