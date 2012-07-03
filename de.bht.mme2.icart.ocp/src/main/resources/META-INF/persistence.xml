@@ -10,21 +10,9 @@
 			<property name="eclipselink.jdbc.user" value="icartUser"/>
 			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/iCart"/>
-		<!-- 
-			<property name="javax.persistence.jdbc.driver"
-                value="org.apache.derby.jdbc.EmbeddedDriver" />
-            <property name="javax.persistence.jdbc.url"
-                value="jdbc:derby:icart_db;create=true" />
-             <property name="javax.persistence.jdbc.user" value="test" />
-			<property name="javax.persistence.jdbc.password" value="test" />
-			-->
 			<property name="eclipselink.ddl-generation" value="create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode"
 				value="database" />
-<!-- 			
-			<property name="eclipselink.jdbc.user" value="icart" />
-            <property name="eclipselink.jdbc.password" value="mypassword" />
--->
 			<property name="eclipselink.logging.level" value="WARNING" />			
 			<property name="eclipselink.orm.throw.exceptions" value="true" />
 		</properties>
