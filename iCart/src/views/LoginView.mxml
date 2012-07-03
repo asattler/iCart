@@ -19,11 +19,15 @@
 			
 			private function sendLogin():void
 			{
-				CursorManager.setBusyCursor();
-				var user2:User = new User(loginEmail.text.toString(), "", "", loginPassword.text.toString());
-				var httpRequest:HttpRequests = new HttpRequests();
-				httpRequest.loginRequest(user2);
-				httpRequest.addEventListener(HttpRequestEvent.LOGIN_EVENT, checkLogin);
+				if(loginEmail.text.toString == "" || loginPassword.text.toString() == ""){
+					Alert.show("Please fill in your credentials");	
+				} else {
+					CursorManager.setBusyCursor();
+					var user2:User = new User(loginEmail.text.toString(), "", "", loginPassword.text.toString());
+					var httpRequest:HttpRequests = new HttpRequests();
+					httpRequest.loginRequest(user2);
+					httpRequest.addEventListener(HttpRequestEvent.LOGIN_EVENT, checkLogin);
+				}
 			}
 			
 			private function clearLoginInputs():void {
