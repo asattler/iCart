@@ -19,7 +19,7 @@
 			
 			private function sendLogin():void
 			{
-				if(loginEmail.text.toString == "" || loginPassword.text.toString() == ""){
+				if(loginEmail.text.toString() == "" || loginPassword.text.toString() == ""){
 					Alert.show("Please fill in your credentials");	
 				} else {
 					CursorManager.setBusyCursor();
