@@ -25,7 +25,6 @@
 		
 		
 			public var ing_data:Array = [];
-			public var recipes_data:Array = [];
 			
 			[Bindable]
 			public var initDG:ArrayCollection;
@@ -92,7 +91,6 @@
 				{
 					ing_data = [];
 					for(var i:int = 0; i < data.length; i++){
-						recipes_data.push({id: data[i].id, name:data[i].name, ingredients:data[i].ingredients, amountPortion:data[i].amountPortion});
 						ing_data.push({id: data[i].id, name:data[i].name, ingredients:data[i].ingredients, amountPortion:data[i].amountPortion});
 					}
 					deleteButton.enabled = false;
