@@ -53,7 +53,7 @@
 				else {
 					var editIntDialog:RecipeEdit = RecipeEdit(PopUpManager.createPopUp(this,
 					RecipeEdit, true));
-					editIntDialog.myRecipe = recipes_data[recipes.selectedIndex];
+					editIntDialog.myRecipe = recipes.selectedItem;
 					PopUpManager.centerPopUp(editIntDialog);
 					editIntDialog.addEventListener(Event.CLOSE, handleClosedWindow);
 					editIntDialog.init();
@@ -93,12 +93,13 @@
 					ing_data = [];
 					for(var i:int = 0; i < data.length; i++){
 						recipes_data.push({id: data[i].id, name:data[i].name, ingredients:data[i].ingredients, amountPortion:data[i].amountPortion});
-						ing_data.push({name:data[i].name});
+						ing_data.push({id: data[i].id, name:data[i].name, ingredients:data[i].ingredients, amountPortion:data[i].amountPortion});
 					}
 					deleteButton.enabled = false;
 					modifyButton.enabled = false;
 					shoppingListButton.enabled = false;
 					initDG = new ArrayCollection(ing_data);
+					recipes.selectedIndex = -1;
 				}		
 				
 			}
@@ -126,9 +127,9 @@
 			private function generateShoppingList():void
 			{
 				var data : Array = new Array();
-				for(var i:int = 0; i < recipes.selectedIndices.length; i++){
-					for(var o:int = 0; o < recipes_data[recipes.selectedIndices[i]]['ingredients'].length; o++){
-						data.push({name:recipes_data[recipes.selectedIndices[i]]['ingredients'][o]['name'], amount:recipes_data[recipes.selectedIndices[i]]['ingredients'][o]['amount']});
+				for(var i:int = 0; i < recipes.selectedItems.length; i++){
+					for(var o:int = 0; o < recipes.selectedItems[i]['ingredients'].length; o++){
+						data.push({name:recipes.selectedItems[i]['ingredients'][o]['name'], amount:recipes.selectedItems[i]['ingredients'][o]['amount']});
 					}						
 					
 				}
@@ -139,7 +140,7 @@
 			{
 				if(recipes.selectedIndices.length > 1) Alert.show("You may only delete one Recipe at a time");
 				else {
-				var id : int = recipes_data[recipes.selectedIndex].id;
+				var id : int = recipes.selectedItem.id;
 				
 				
 					CursorManager.setBusyCursor();
